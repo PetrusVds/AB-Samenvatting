@@ -6,7 +6,9 @@
 \contentsline {subsection}{\numberline {1.4}Eindge toestandsautomaten}{4}{subsection.1.4}%
 \contentsline {subsection}{\numberline {1.5}De algebra van NFA's}{5}{subsection.1.5}%
 \contentsline {subsection}{\numberline {1.6}Van RE naar NFA}{6}{subsection.1.6}%
-\contentsline {section}{\numberline {2}Talen en berekenbaarheid}{7}{section.2}%
-\contentsline {section}{\numberline {3}Herschrijfsystemen}{8}{section.3}%
-\contentsline {section}{\numberline {4}Andere rekenparadigmas}{9}{section.4}%
-\contentsline {section}{\numberline {5}Talen en complexiteit}{10}{section.5}%
+\contentsline {subsection}{\numberline {1.7}Van NFA naar RE}{7}{subsection.1.7}%
+\contentsline {subsection}{\numberline {1.8}Deterministische eindige toestandsmachines}{8}{subsection.1.8}%
+\contentsline {section}{\numberline {2}Talen en berekenbaarheid}{9}{section.2}%
+\contentsline {section}{\numberline {3}Herschrijfsystemen}{10}{section.3}%
+\contentsline {section}{\numberline {4}Andere rekenparadigmas}{11}{section.4}%
+\contentsline {section}{\numberline {5}Talen en complexiteit}{12}{section.5}%

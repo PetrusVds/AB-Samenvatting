@@ -30,7 +30,7 @@
     Gegeven twee talen $L_1$ en $L_2$ over hetzelfde alfabet $\Sigma$, dan noteren we de concatenatie van
     $L_1$ en $L_2$ als $L_1L_2$ en definïeren we:
     \begin{equation*}
-        L_{1}L_{2} = \{ xy | x \in L_1, y \in L_2\}
+        L_{1}L_{2} = \{ xy  \ | \ x \in L_1,  \ y \in L_2\}
     \end{equation*}
     \vspace{-0.3cm}
 \end{pro}
@@ -167,3 +167,82 @@
 \subsection{Van RE naar NFA}
 
 \vspace{0.5cm}
+
+\begin{theo}[Van RE naar NFA]{Van RE naar NFA}
+    We hebben alle ingrediënten om van een reguliere expressie RE een NFA te maken, en zodanig dat de $L_{RE} = L_{NFA}$.
+    Vermits reguliere expressies inductief gedefinieerd zijn zullen we voor elk lijntje van die definitie een overeenkomstige NFA definiëren.
+    De drie basisgevallen, namelijk $\epsilon$, $\phi$ en $a \in \Sigma$, zijn triviaal te modeleren als NFA.
+    De drie recursieve gevallen beschrijven we als volgt: laat $E_{1}$ en $E_{2}$ twee reguliere expressies zijn, dan is
+    \begin{itemize}
+        \item $NFA_{E_{1}E_{2}} = \text{concat}(NFA_{E_{1}},NFA_{E_{2}})$
+        \item $NFA_{E_{1}^{*}} = \text{ster}(NFA_{E_{1}})$
+        \item $NFA_{E_{1}|E_{2}} = \text{unie}(NFA_{E_{1}},NFA_{E_{2}})$
+    \end{itemize}
+    \noindent De constructie hierboven bewaart de taal, t.t.z. $L_{NFA_{E}} = L_{E}$.
+\end{theo}
+
+\subsection{Van NFA naar RE}
+
+\vspace{0.5cm}
+
+\begin{theo}[GNFA]{GNFA}
+    Een \textbf{GNFA} is een eindige toestandsmachine met de volgende wijzigingen en beperkingen: \\
+
+    % \begin{itemize}
+    %     \item er is slechts één eindtoestand en die is verschillend van de starttoestand
+    %     \item vanuit de starttoestand vertrekt er juist één boog naar elke andere toestand; er komen geen bogen aan in de starttoestand
+    %     \item in de eindtoestand komt juist één boog aan vanuit elke andere toestand; uit de eindtoestand vertrekken geen bogen
+    %     \item voor paar \(p\),\(q\) (let op: p = q is geldig) van andere toestanden (geen start- of eindtoestand) is er juist één boog van \(p \to q\) en één boog van \(q \to p\).
+    %     \item  de bogen hebben als label een reguliere expressie
+    % \end{itemize} 
+    \begin{minipage}{.56\textwidth}
+        \begin{itemize}
+            \item er is slechts één eindtoestand en die is verschillend van de starttoestand
+            \item vanuit de starttoestand vertrekt er juist één boog naar elke andere toestand; er komen geen bogen aan in de starttoestand
+            \item in de eindtoestand komt juist één boog aan vanuit elke andere toestand; uit de eindtoestand vertrekken geen bogen
+            \item voor paar \(p\),\(q\) (let op: \(p\) = \(q\) is geldig) van andere toestanden (geen start- of eindtoestand) is er juist één boog \(p \to q\) en één boog \(q \to p\).
+            \item  de bogen hebben als label een reguliere expressie
+        \end{itemize} 
+    \end{minipage}
+    \begin{minipage}{.4\textwidth}
+        \includegraphics[scale = 0.35]{Images/GNFA.png}
+    \end{minipage}
+\end{theo}
+
+\begin{alg}[NFA $\to$ RE]{NFA naar RE}
+    \begin{enumerate}
+        \item Maak van de NFA een GNFA
+        \begin{itemize}
+            \item Behoud alle toestanden en bogen van de NFA
+            \item Als er meerdere bogen zijn tussen twee toestanden gelabeld met symbolen \(a_{1} \ldots a_{n} \) vervang deze door één boog met als label \(a_{1} | \ldots | a_{n} \)
+            \item Voer een nieuwe starttoestand in en een \(\epsilon\)-boog naar de oude starttoestand
+            \item Voer een nieuwe eindtoestand in en \(\epsilon\)-bogen vanuit elke oude eindtoestand
+            \item Voor elke boog die ontbreekt tussen twee toestanden om een GNFA te bekomen, voer een \(\phi\)-boog in
+        \end{itemize}
+        \item Reduceer de GNFA: \vspace{0.3cm} \\
+            \begin{minipage}{.43\textwidth} 
+                Kies een willekeurige toestand \(X\) verschillend van de start- of eindtoestand, ga naar stap 3 als dit niet mogelijk is.
+                Voor elk paar toestanden \(A\) en \(B\) (let op: \(A\) = \(B\) is geldig) verschillend van X bevat de GNFA een unieke boog \(A \to B\) met label \(E_{4}\), 
+                \(A \to X\) met label \(E_{1}\), \(X \to X\) met label \(E_{2}\) en \(X \to B\) met label \(E_{3}\). Vervang het label op de boog \(A \to B\) door \(E_{4} | E_{1}E_{2}^{*}E_{3}\).
+                Doe dit voor alle keuzes voor A en B. Verwijder daana de knoop X en herhaal.
+            \end{minipage}
+            \begin{minipage}{.53\textwidth}
+                \includegraphics[scale = 0.425]{Images/GNFAToestandVerwijderen}
+            \end{minipage}
+        \item Bepaal RE: de boog van de GNFA heeft als label de gezochte RE
+    \end{enumerate}
+\end{alg}
+
+\newpage
+
+\subsection{Deterministische eindige toestandsmachines}
+
+\vspace{0.5cm}
+
+\begin{theo}[Deterministische eindige toestandsmachines]{Deterministische eindige toestandsmachines}
+    Een NFA is een DFA indien \(\delta\) geen \(\epsilon\)-overgangen bevat en 
+    indien voor elke \(p \in Q\) en elke \(a \in \Sigma\) een unieke \(q \in Q\) 
+    bestaat zodat \(p \overset{a}{\to} q\). Het komt erop neer dat in een DFA, \(\delta\) 
+    een totale functie $Q \times \Sigma \to Q$ is. Voor DFA's zullen a
+    we de unieke toestand q zodat \(p \overset{a}{\to} q\) dan ook noteren als \(\delta(p,a)\).
+\end{theo}

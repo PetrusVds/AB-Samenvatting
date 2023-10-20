@@ -1,8 +1,13 @@
 \usepackage[framemethod=TikZ]{mdframed}
-
+\newcommand{\framedtext}[1]{%
+\noindent\fbox{%
+    \parbox{\dimexpr\linewidth-2\fboxsep-2\fboxrule}{#1}%
+}%
+}
 \input{Commands/Bewijs}
 \input{Commands/Definitie}
 \input{Commands/Lemma}
 \input{Commands/Voorbeeld}
 \input{Commands/Eigenschap}
 \input{Commands/Toepassing}
+\input{Commands/Algoritme}

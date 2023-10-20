@@ -283,6 +283,11 @@ INPUT ./Commands/Toepassing.tex
 INPUT ./Commands/Toepassing.tex
 INPUT ./Commands/Toepassing.tex
 INPUT Commands/Toepassing.tex
+INPUT ./Commands/Algoritme.tex
+INPUT ./Commands/Algoritme.tex
+INPUT ./Commands/Algoritme.tex
+INPUT ./Commands/Algoritme.tex
+INPUT Commands/Algoritme.tex
 INPUT out/main.aux
 INPUT out/main.aux
 INPUT out/main.aux
@@ -369,6 +374,15 @@ INPUT ./Images/SterNFA.png
 INPUT ./Images/SterNFA.png
 INPUT ./Images/SterNFA.png
 INPUT ./Images/SterNFA.png
+INPUT ./Images/GNFA.png
+INPUT ./Images/GNFA.png
+INPUT ./Images/GNFA.png
+INPUT ./Images/GNFA.png
+INPUT ./Images/GNFA.png
+INPUT ./Images/GNFAToestandVerwijderen.png
+INPUT ./Images/GNFAToestandVerwijderen.png
+INPUT ./Images/GNFAToestandVerwijderen.png
+INPUT ./Images/GNFAToestandVerwijderen.png
 INPUT ./Chapters/Talen en berekenbaarheid.tex
 INPUT ./Chapters/Talen en berekenbaarheid.tex
 INPUT ./Chapters/Talen en berekenbaarheid.tex
