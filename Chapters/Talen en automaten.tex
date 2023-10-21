@@ -378,7 +378,7 @@
 
 \begin{pro}[$\sim_{\text{DFA}}$]{pro - DFAeqklassen}
     \begin{itemize}
-        \item Rechtscongruentie van $\sim$: $\forall x,y \in \Sigma^*, \ a \in \Sigma: \ x \sim y \ \Rightarrow \ xa \sim ya $
+        \item Rechts congruentie van $\sim$: $\forall x,y \in \Sigma^*, \ a \in \Sigma: \ x \sim y \ \Rightarrow \ xa \sim ya $
         \item het aantal equivalentieklassen van $\sim$ is eindig, m$.$a$.$w$.$ $\sim$ heeft een eindige index
         \item $\sim$ verfijnt $\sim_L$, of: $x \sim y \ \Rightarrow \ x \sim_L y$
     \end{itemize}
@@ -412,7 +412,49 @@
 
 \newpage
 
-\begin{lem}[]{}
-    Voor elke taal $L$ dat de functie van DFA's van $L$ naar de corresponderende MN(L)-relatie $\sim_{\text{DFA}}$, en de functie 
-    van MN(L)-relaties $\sim$ naar de corresponderende DFA$_{\sim}^{\text{L}}$ zijn elkaars inverse - op een DFA-isomorfisme na.
+\begin{lem}[$\sim_{\text{DFA}}$ en $\sim$ zijn elkaars inverse]{simDFA en sim zijn elkaars inverse}
+    Voor elke taal $L$ geldt dat de functie die DFA's van $L$ afbeeldt op de de overeenkomstige MN(L)-relatie $\sim_{\text{DFA}}$ en de functie 
+    die MN(L)-relaties $\sim$ afbeeldt op de overeenkomstige DFA$_{\sim}^{\text{L}}$, elkaars inversen zijn op een DFA-isomorfisme na.
 \end{lem}
+
+% \begin{prf}[$\sim_{\text{DFA}}$ en $\sim$ zijn elkaars inverse]{simDFA en sim zijn elkaars inverse}
+% \end{prf}
+
+\begin{lem}[Infimumrelatie van Myhill-Nerode relaties]{Infimumrelatie van Myhill-Nerode relaties}
+    Als $E$ een niet lege verzameling van MN(L) relaties is, dan is ook het infimum $\sim_{\text{inf}}$ van $E$ een MN(L)-relatie.
+    $\sim_{\text{inf}}$ is de transitieve sluiting van de unie van $E$. Dit betekent dat
+    \begin{equation*}
+        x \sim_{\text{inf}} y \ \Leftrightarrow \ i \in [0, n-1], \ \sim_i \in E: \ x = x_0 \sim_0 x_1 \sim_1 \ldots \sim_{n-1} x_n = y
+    \end{equation*}
+    \vspace{-0.5cm}
+\end{lem}
+
+\begin{prf}[Infimumrelatie van Myhill-Nerode relaties]{prf - Infimumrelatie van Myhill-Nerode relaties}
+    We zagen al dat het infimum van een niet lege verzameling $E$ van equivalentierelaties zelf ook een equivalentierelatie is.
+
+    \begin{itemize}
+        \item 
+            \textbf{Eindigheid:} $\sim_{\text{inf}}$ is een superset van elke willekeurige $\sim \in E$ en heeft dus minder equivalentieklassen
+            dan $\sim$. Elke $\sim$ heeft slechts een eindig aantal equivalentieklasse, zodoende ook $\sim_{\text{inf}}$.
+        \item 
+            \textbf{Rechts congruentie:} Stel $x \sim_{\text{inf}} y$ dan bestaat de sequentie 
+            \begin{equation*}
+                x = x_0 \sim_0 x_1 \sim_1 \ldots \sim_{n-1} x_n = y
+            \end{equation*}
+            Aangezien elke $\sim_i$ rechts congruent is, geldt voor elke $a \in \Sigma$ dat 
+            \begin{equation*}
+                xa = x_0a \sim_0 x_1a \sim_1 \ldots \sim_{n-1} x_na = ya
+            \end{equation*}
+            Bijgevolg geldt dat $xa \sim_{\text{inf}} ya$ en dus dat $\sim_{\text{inf}}$ rechts congruent is.
+        \item 
+            \textbf{Verfijnen van $\sim_L$:} Stel $x \sim_{\text{inf}} y$ zodat er een sequentie bestaat 
+            \begin{equation*}
+                x = x_0 \sim_0 x_1 \sim_1 \ldots \sim_{n-1} x_n = y
+            \end{equation*}
+            Aangezien elke $\sim_i$ een verfijning is van $\sim_L$, geldt
+            \begin{equation*}
+                x_0 \in L \Leftrightarrow x_1 \in L \Leftrightarrow \ldots \Leftrightarrow x_n \in L
+            \end{equation*}
+            We bekomen $x \in L \Leftrightarrow y \in L$ en dus dat $\sim_{\text{inf}}$ een verfijning is van $\sim_L$.
+    \end{itemize}
+\end{prf}
