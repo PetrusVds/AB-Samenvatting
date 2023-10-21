@@ -43,8 +43,6 @@ INPUT /usr/local/texlive/2023/texmf-dist/tex/latex/caption/caption.sty
 INPUT /usr/local/texlive/2023/texmf-dist/tex/latex/caption/caption.sty
 INPUT /usr/local/texlive/2023/texmf-dist/tex/latex/caption/caption3.sty
 INPUT /usr/local/texlive/2023/texmf-dist/tex/latex/caption/caption3.sty
-INPUT /usr/local/texlive/2023/texmf-dist/tex/latex/doublestroke/dsfont.sty
-INPUT /usr/local/texlive/2023/texmf-dist/tex/latex/doublestroke/dsfont.sty
 INPUT /usr/local/texlive/2023/texmf-dist/tex/latex/amsfonts/amsfonts.sty
 INPUT /usr/local/texlive/2023/texmf-dist/tex/latex/amsfonts/amsfonts.sty
 INPUT /usr/local/texlive/2023/texmf-dist/tex/latex/amscls/amsthm.sty
@@ -118,6 +116,17 @@ INPUT /usr/local/texlive/2023/texmf-dist/tex/generic/babel/locale/nl/babel-dutch
 INPUT /usr/local/texlive/2023/texmf-dist/tex/generic/babel/locale/nl/babel-dutch.tex
 INPUT /usr/local/texlive/2023/texmf-dist/tex/generic/babel/locale/nl/babel-dutch.tex
 INPUT /usr/local/texlive/2023/texmf-dist/tex/generic/babel/locale/nl/babel-nl.ini
+INPUT /usr/local/texlive/2023/texmf-dist/tex/latex/xcolor/xcolor.sty
+INPUT /usr/local/texlive/2023/texmf-dist/tex/latex/xcolor/xcolor.sty
+INPUT /usr/local/texlive/2023/texmf-dist/tex/latex/graphics-cfg/color.cfg
+INPUT /usr/local/texlive/2023/texmf-dist/tex/latex/graphics-cfg/color.cfg
+INPUT /usr/local/texlive/2023/texmf-dist/tex/latex/graphics-cfg/color.cfg
+INPUT /usr/local/texlive/2023/texmf-dist/tex/latex/graphics/mathcolor.ltx
+INPUT /usr/local/texlive/2023/texmf-dist/tex/latex/graphics/mathcolor.ltx
+INPUT /usr/local/texlive/2023/texmf-dist/tex/latex/graphics/mathcolor.ltx
+INPUT /usr/local/texlive/2023/texmf-dist/tex/latex/graphics/dvipsnam.def
+INPUT /usr/local/texlive/2023/texmf-dist/tex/latex/graphics/dvipsnam.def
+INPUT /usr/local/texlive/2023/texmf-dist/tex/latex/graphics/dvipsnam.def
 INPUT /usr/local/texlive/2023/texmf-dist/tex/latex/amsfonts/amssymb.sty
 INPUT /usr/local/texlive/2023/texmf-dist/tex/latex/amsfonts/amssymb.sty
 INPUT ./Commands/Setup.tex
@@ -142,13 +151,6 @@ INPUT /usr/local/texlive/2023/texmf-dist/tex/generic/etexcmds/etexcmds.sty
 INPUT /usr/local/texlive/2023/texmf-dist/tex/latex/needspace/needspace.sty
 INPUT /usr/local/texlive/2023/texmf-dist/tex/latex/needspace/needspace.sty
 INPUT /usr/local/texlive/2023/texmf-dist/tex/latex/graphics/color.sty
-INPUT /usr/local/texlive/2023/texmf-dist/tex/latex/graphics/color.sty
-INPUT /usr/local/texlive/2023/texmf-dist/tex/latex/graphics-cfg/color.cfg
-INPUT /usr/local/texlive/2023/texmf-dist/tex/latex/graphics-cfg/color.cfg
-INPUT /usr/local/texlive/2023/texmf-dist/tex/latex/graphics-cfg/color.cfg
-INPUT /usr/local/texlive/2023/texmf-dist/tex/latex/graphics/mathcolor.ltx
-INPUT /usr/local/texlive/2023/texmf-dist/tex/latex/graphics/mathcolor.ltx
-INPUT /usr/local/texlive/2023/texmf-dist/tex/latex/graphics/mathcolor.ltx
 INPUT /usr/local/texlive/2023/texmf-dist/tex/latex/pgf/frontendlayer/tikz.sty
 INPUT /usr/local/texlive/2023/texmf-dist/tex/latex/pgf/frontendlayer/tikz.sty
 INPUT /usr/local/texlive/2023/texmf-dist/tex/latex/pgf/frontendlayer/tikz.sty
@@ -182,10 +184,6 @@ INPUT /usr/local/texlive/2023/texmf-dist/tex/generic/pgf/systemlayer/pgfsyssoftp
 INPUT /usr/local/texlive/2023/texmf-dist/tex/generic/pgf/systemlayer/pgfsysprotocol.code.tex
 INPUT /usr/local/texlive/2023/texmf-dist/tex/generic/pgf/systemlayer/pgfsysprotocol.code.tex
 INPUT /usr/local/texlive/2023/texmf-dist/tex/generic/pgf/systemlayer/pgfsysprotocol.code.tex
-INPUT /usr/local/texlive/2023/texmf-dist/tex/latex/xcolor/xcolor.sty
-INPUT /usr/local/texlive/2023/texmf-dist/tex/latex/xcolor/xcolor.sty
-INPUT /usr/local/texlive/2023/texmf-dist/tex/latex/graphics-cfg/color.cfg
-INPUT /usr/local/texlive/2023/texmf-dist/tex/latex/graphics/mathcolor.ltx
 INPUT /usr/local/texlive/2023/texmf-dist/tex/generic/pgf/basiclayer/pgfcore.code.tex
 INPUT /usr/local/texlive/2023/texmf-dist/tex/generic/pgf/basiclayer/pgfcore.code.tex
 INPUT /usr/local/texlive/2023/texmf-dist/tex/generic/pgf/basiclayer/pgfcore.code.tex
@@ -383,6 +381,8 @@ INPUT ./Images/GNFAToestandVerwijderen.png
 INPUT ./Images/GNFAToestandVerwijderen.png
 INPUT ./Images/GNFAToestandVerwijderen.png
 INPUT ./Images/GNFAToestandVerwijderen.png
+INPUT /usr/local/texlive/2023/texmf-dist/fonts/tfm/public/cm/cmbx7.tfm
+INPUT /usr/local/texlive/2023/texmf-dist/fonts/tfm/public/cm/cmbx5.tfm
 INPUT ./Chapters/Talen en berekenbaarheid.tex
 INPUT ./Chapters/Talen en berekenbaarheid.tex
 INPUT ./Chapters/Talen en berekenbaarheid.tex
@@ -408,6 +408,7 @@ INPUT out/main.out
 INPUT out/main.out
 INPUT /usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb
 INPUT /usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb
+INPUT /usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx7.pfb
 INPUT /usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb
 INPUT /usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb
 INPUT /usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb
@@ -419,5 +420,7 @@ INPUT /usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb
 INPUT /usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb
 INPUT /usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb
 INPUT /usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb
+INPUT /usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb
 INPUT /usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb
+INPUT /usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb
 INPUT /usr/local/texlive/2023/texmf-dist/fonts/type1/public/cm-super/sfrm1000.pfb

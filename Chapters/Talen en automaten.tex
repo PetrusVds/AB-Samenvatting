@@ -95,7 +95,7 @@
     \end{minipage}
     \begin{minipage}{.4\textwidth}
         \begin{center}
-            \includegraphics[scale = 0.275]{Images/NFA}
+            \includegraphics[scale = 0.25]{Images/NFA}
         \end{center}
     \end{minipage}
 \end{theo}
@@ -105,7 +105,7 @@
 \begin{theo}[Een string $s$ wordt aanvaard door een NFA]{Een string s wordt aanvaard door een NFA}
     Een string $s$ wordt aanvaard door een NFA $(Q,\Sigma, \delta, q_s, F)$ indien
     er een sequentie $q_s = q_0 \overset{a_0}{\to} \ldots \overset{a_{n-1}}{\to} q_n$
-    van overgangen bestaat met $q_n \in F$ zodat s de $\epsilon$-compressiew, wat bekomen wordt door
+    van overgangen bestaat met $q_n \in F$ zodat s de $\epsilon$-compressie, wat bekomen wordt door
     in $\epsilon$ te schrappen in de string, is van $a_0 \ldots a_{n-1}$. \\
     
     \noindent \textbf{Dus:} Voor toestanden $p$,$q$ en string $w \in \Sigma^*$ schrijven we $p \overset{w}{\rightsquigarrow} q$
@@ -220,14 +220,14 @@
             \item Voor elke boog die ontbreekt tussen twee toestanden om een GNFA te bekomen, voer een \(\phi\)-boog in
         \end{itemize}
         \item Reduceer de GNFA: \vspace{0.3cm} \\
-            \begin{minipage}{.43\textwidth} 
+            \begin{minipage}{.453\textwidth} 
                 Kies een willekeurige toestand \(X\) verschillend van de start- of eindtoestand, ga naar stap 3 als dit niet mogelijk is.
                 Voor elk paar toestanden \(A\) en \(B\) (let op: \(A\) = \(B\) is geldig) verschillend van X bevat de GNFA een unieke boog \(A \to B\) met label \(E_{4}\), 
                 \(A \to X\) met label \(E_{1}\), \(X \to X\) met label \(E_{2}\) en \(X \to B\) met label \(E_{3}\). Vervang het label op de boog \(A \to B\) door \(E_{4} | E_{1}E_{2}^{*}E_{3}\).
                 Doe dit voor alle keuzes voor A en B. Verwijder daana de knoop X en herhaal.
             \end{minipage}
-            \begin{minipage}{.53\textwidth}
-                \includegraphics[scale = 0.425]{Images/GNFAToestandVerwijderen}
+            \begin{minipage}{.43\textwidth}
+                \hspace{0.3cm}\includegraphics[scale = 0.375]{Images/GNFAToestandVerwijderen}
             \end{minipage}
         \item Bepaal RE: de boog van de GNFA heeft als label de gezochte RE
     \end{enumerate}
@@ -246,3 +246,99 @@
     een totale functie $Q \times \Sigma \to Q$ is. Voor DFA's zullen a
     we de unieke toestand q zodat \(p \overset{a}{\to} q\) dan ook noteren als \(\delta(p,a)\).
 \end{theo}
+
+\begin{lem}[DFA en NFA equivalentie]{DFA en NFA equivalentie}
+    Elke NFA is equivalent met een DFA, m$.$a$.$w$.$ we kunnen elke NFA \((Q, \Sigma, \delta, q_s, F)\) herleiden tot een
+    equivalente DFA \((Q', \Sigma, \delta', q_s', F')\) waarbij
+    \begin{itemize}
+        \item \(Q'\): de verzameling van alle deelverzamelingen $q'$ van $Q$ die gesloten zijn onder \(\epsilon\)-bogen, dus
+              \(p \in q' \ \wedge \ p \overset{\epsilon}{\to} q \ \Rightarrow \ q \in q'\)
+        \item \(\delta': Q' \times \Sigma \rightarrow Q'\)
+        \item \(q_{s}' = \{q_s,q \ | \ q_s \overset{\epsilon}{\rightsquigarrow} q \}\)
+        \item \(F' = \{q' \in Q' \ | \ q' \cap F \neq \emptyset \}\)
+    \end{itemize}
+    \vspace{-0.3cm}
+\end{lem}
+
+\begin{prf}[DFA en NFA equivalentie]{prf - DFA en NFA equivalentie}
+    Uit constructie volgt dat de geconstrueerde automaat \((Q', \Sigma, \delta', q_s', F')\) een DFA is.
+    Wat betreft equivalentie, moeten we verifiëren dat \(\forall w \in \Sigma^*:  q_s \overset{w}{\rightsquigarrow} F \Leftrightarrow q_s' \overset{w}{\rightsquigarrow} F'\). 
+    De essentie van dat bewijs is dat voor elke \(w \in \Sigma^*\), als in de DFA geldt dat \(q_s' \overset{w}{\rightsquigarrow} q\) (in de DFA) dan is \(q\ = q_w = \{ q \ | \ q_s \overset{w}{\rightsquigarrow} q \}\) (in de NFA).
+    Dit is eenvoudig inductief te bewijzen gebruik makend van het feit dat \(q' = q_w' \Rightarrow \delta'(q',a) = q_{wa}'\). Dan geldt dat de 
+    DFA een string $w$ aanvaardt als voor de unieke toestand \(q'\) zodat \(q_s' \overset{w}{\rightsquigarrow} q'\) geldt dat \(q' \cap F \neq \emptyset \ \Leftrightarrow \ q_w' \cap F \neq \emptyset \ \Leftrightarrow\) de NFA aanvaardt w.
+\end{prf}
+
+\begin{theo}[Minimale DFA]{Minimale DFA}
+    Een DFA is minimaal als er geen enkele andere DFA bestaat die dezelfde taal bepaalt en minder toestanden heeft.
+\end{theo}
+
+\begin{theo}[$f$-string]{f-string}
+    We noemen een string $s$ een $f$-string vanuit $q$ van de DFA indien \(\delta^*(q,s) \in F\), t$.$t$.$z$.$ indien er een pad is van $q$ naar een toestand van $F$ die s genereert. $F$-gelijke toestanden
+    zijn dan toestanden met dezelfde $f$-strings. \vspace{0.3cm}\\
+    \textbf{Opmerking:} \(q \in F \Leftrightarrow \epsilon \text{ is een $f$-string vanuit $q$}\)
+\end{theo}
+
+\begin{theo}[$f$-gelijk]{f-gelijk}
+    Twee toestanden \(q_1,q_2\) zijn $f$-gelijk indien
+    \begin{equation*}
+        \{ s \in \Sigma^* \ | \ \delta^*(q_1,s) \in F\} = \{s \in \Sigma^* \ | \ \delta^*(q_2,s) \in F\}
+    \end{equation*}
+    In woorden, als $q_1$ en $q_2$ exact dezelfde $f$-strings hebben.
+\end{theo}
+
+\begin{pro}[$f$-gelijk]{pro - f-gelijk}
+    \begin{itemize}
+        \item De relatie $f$-gelijk is een equivalentie-relatie.
+        \item Als $p,q$ $f$-gelijk zijn dan geldt voor elk symbool $a$ dat \(\delta(p,a)\) en \(\delta(q,a)\) ook $f$-gelijk zijn.
+        \item Als $p,q$ $f$-gelijk zijn dan geldt \(p \in F \Leftrightarrow q \in F\).
+    \end{itemize}
+\end{pro}
+
+\begin{prf}[Eigenschappen van de $f$-gelijk relatie]{prf - Eigenschappen van de f-gelijk relatie}
+    \begin{itemize}
+        \item Het is triviaal om te bewijzen dat $f$-gelijkheid een equivalentie-relatie is. Dit kan je doen door de reflexiviteit, symmetrie en transitiviteit van de relatie na te gaan.
+        \item Veronderstel dat $p,q$ $f$-gelijk zijn en veronderstel voor een willekeurig symbool $a$ dat \(\delta(p,a) = p', \delta(q,a) = q'\). De $f$-strings van $p$ en $q$ zijn gelijk,
+              en dus ook hun $f$-strings van de vorm $as$. De $f$-strings van $p'$ zijn de strings $s$ zodat $as$ een $f$-string is van $p$.
+              Hetzelfde geldt voor $q'$. Bijgevolg hebben $p',q'$ dezelfde $f$-strings en zijn ze dus $f$-gelijk.
+        \item Als $p$ en $q$ $f$-gelijk zijn, en $p \in F$ dan is $\epsilon$ een $f$-string van $p$ en dus ook van $q$. Aangezien er in een DFA geen $\epsilon$-bogen zijn, is $q \in F$.
+              Hetzelfde geldt in de andere richting. 
+    \end{itemize}
+\end{prf}
+
+\begin{theo}[Minimale DFA]{Minimale DFA}
+    Een DFA is minimaal als er geen enkele andere DFA bestaat die dezelfde taal bepaalt en minder toestanden heeft, m$.$a$.$w$.$ 
+    DFA$_{\text{min}}$ is een DFA, equivalent met DFA, en alle toestanden zijn $f$-verschillend.
+    \vspace{-0.3cm}
+\end{theo}
+
+\begin{lem}[DFA$_{\text{min}}$]{minDFA}
+    Als een DFA N = $(Q_1,\Sigma, \delta_1, q_s, F_1)$  een DFA is zonder onbereikbare toestanden en waarin elke twee toestanden $f$-verschillend zijn, 
+    dan bestaat er geen machine met strikt minder toestanden die dezelfde taal bepaalt.
+\end{lem}
+
+\newpage
+
+\begin{prf}[DFA$_{\text{min}}$]{prf - minDFA}
+    Veronderstel dat \(Q_1 = \{q_s,q_1, \ldots, q_n\}\) waarbij \(q_s\) de starttoestand is. 
+    Stel dat \(N_2 = (Q_2,\Sigma, \delta_2, q_s, F_2)\) een DFA is met minder toestanden dan $N$.
+    Vermits in $N$ elke toestand bereikbaar is, bestaan er strings \(\forall i \in \mathbb{N}_0^+: s_i\) zodanig dat \(\delta_1^*(q_s,s_i) = q_i\). 
+    Vermits \(N_2\) minder toestanden heeft moet voor een \(i \neq j: \delta_2^*(p_s,s_i) = \delta_2^*(p_s,s_j)\). Vermits \(q_i\) en \(q_j\)
+    $f$-verschillend zijn, is er een string \(s\) zodat \(\delta_1^*(q_i,s) \in F_1\) en \(\delta_1^*(q_j,s) \notin F_1\) of omgekeerd.
+    Dus ook \(\delta_1^*(q_s,s_is) \in F_1\) en \(\delta_1^*(q_s,s_js) \notin F_1\) of omgekeerd. Dit betekent dat DFA$_1$ van de strings $s_is$ en $s_js$ er juist één accepteert.
+    Maar N$_2$ zal beide strings $s_is$ en $s_js$ accepteren of geen van beiden, aangezien het parsen van $s_i$ en $s_j$ naar dezelfde node leidt, waarna hetzelfde pad gevolgd wordt om $v$ te parsen.
+    Dus kunnen de DFA's N en N$_2$ niet dezelfde taal bepalen.
+\end{prf}
+
+\begin{theo}[DFA isomorfisme]{DFA isomorfisme}
+    Een DFA$_1 = (Q_1,\Sigma, \delta_1, q_{s_1}, F_1)$ is \textbf{isomorf} met een DFA$_2 = (Q_2,\Sigma, \delta_2, q_{s_2}, F_2)$ als er een bijectie $b: Q_1 \to Q_2$ bestaat zodanig dat
+    \begin{itemize}
+        \item $b(F_1) = F_2$
+        \item $b(q_{s_1}) = q_{s_2}$
+        \item $b(\delta_1(q,a)) = \delta_2(b(q),a)$
+    \end{itemize}
+    Twee isomorfe DFA's bepalen dus dezelfde taal.
+\end{theo}
+
+\subsection{Myhill-Nerode relaties op $\Sigma^*$}
+
+\vspace{0.5cm}

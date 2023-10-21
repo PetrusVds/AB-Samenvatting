@@ -7,11 +7,12 @@
 \usepackage{amsmath}
 \usepackage{titling}
 \usepackage{caption}
-\usepackage{dsfont}
+% \usepackage{dsfont}
 \usepackage{amsfonts}
 \usepackage{amsthm}
 \usepackage{hyperref}
 \usepackage[dutch]{babel}
+\usepackage[dvipsnames]{xcolor}
 \usepackage{amssymb}
 \counterwithin*{equation}{section}% Reset equation at \section
 \counterwithin*{equation}{subsection}% Reset equation at \subsection
@@ -32,6 +33,11 @@
 \renewcommand\maketitlehookd{\vfill\null}
 \newcommand{\RomanNumeralCaps}[1]{\MakeUppercase{\romannumeral#1}}
 \input{Commands/Setup}
+
+%------------------------------------------------
+%	                 COLORS
+%------------------------------------------------
+\definecolor{orange}{rgb}{1,0.5,0}
 
 %------------------------------------------------
 %	            START OF DOCUMENT
