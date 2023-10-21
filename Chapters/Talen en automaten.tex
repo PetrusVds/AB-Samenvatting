@@ -312,25 +312,40 @@
 \end{theo}
 
 \begin{lem}[DFA$_{\text{min}}$]{minDFA}
-    Als een DFA N = $(Q_1,\Sigma, \delta_1, q_s, F_1)$  een DFA is zonder onbereikbare toestanden en waarin elke twee toestanden $f$-verschillend zijn, 
-    dan bestaat er geen machine met strikt minder toestanden die dezelfde taal bepaalt.
+    \begin{itemize}
+        \item DFA$_{\text{min}}$ is een DFA, equivalent met DFA, en alle toestanden zijn $f$-verschillend.
+        \item Als een DFA $N$ = $(Q_1,\Sigma, \delta_1, q_s, F_1)$  een DFA is zonder onbereikbare toestanden en waarin elke twee toestanden $f$-verschillend zijn, 
+        dan bestaat er geen machine met strikt minder toestanden die dezelfde taal bepaalt.
+    \end{itemize}
 \end{lem}
 
 \newpage
 
 \begin{prf}[DFA$_{\text{min}}$]{prf - minDFA}
-    Veronderstel dat \(Q_1 = \{q_s,q_1, \ldots, q_n\}\) waarbij \(q_s\) de starttoestand is. 
-    Stel dat \(N_2 = (Q_2,\Sigma, \delta_2, q_s, F_2)\) een DFA is met minder toestanden dan $N$.
-    Vermits in $N$ elke toestand bereikbaar is, bestaan er strings \(\forall i \in \mathbb{N}_0^+: s_i\) zodanig dat \(\delta_1^*(q_s,s_i) = q_i\). 
-    Vermits \(N_2\) minder toestanden heeft moet voor een \(i \neq j: \delta_2^*(p_s,s_i) = \delta_2^*(p_s,s_j)\). Vermits \(q_i\) en \(q_j\)
-    $f$-verschillend zijn, is er een string \(s\) zodat \(\delta_1^*(q_i,s) \in F_1\) en \(\delta_1^*(q_j,s) \notin F_1\) of omgekeerd.
-    Dus ook \(\delta_1^*(q_s,s_is) \in F_1\) en \(\delta_1^*(q_s,s_js) \notin F_1\) of omgekeerd. Dit betekent dat DFA$_1$ van de strings $s_is$ en $s_js$ er juist één accepteert.
-    Maar N$_2$ zal beide strings $s_is$ en $s_js$ accepteren of geen van beiden, aangezien het parsen van $s_i$ en $s_j$ naar dezelfde node leidt, waarna hetzelfde pad gevolgd wordt om $v$ te parsen.
-    Dus kunnen de DFA's N en N$_2$ niet dezelfde taal bepalen.
+    \begin{itemize}
+        \item 
+        DFA$_min$ is een DFA omdat $f$-gelijkheid van toestanden $p$ en $q$ de $f$-gelijkheid van \(\delta(p,a)\) en \(\delta(q,a)\) impliceert. Het gevolg is dat verschillende bogen met hetzelfde symbool
+        vanuit $f$-gelijke $p$ en $q$ versmelten. Om aan te tonen dat DFA en DFA$_{\text{min}}$ equivalent zijn, is de essentiële eigenschap dat elke equivalentie-klasse $Q_i$ en elk element \(p \in Q_i\)
+        dezelfde $f$-strings heeft. Dus heeft $\tilde{q}_s$ dezelfde $f$-strings als $q_s$, en deze verzameling is dus de taal die beide DFA's bepalen. Aantonen dat een string $w$ een $f$-string is van $Q_i$
+        als en slechts als $w$ een $f$-string is van \(q \in Q_i\) gebeurt door inductie op de lengte van $w$, gebruikmakend van het feit dat voor elke \(Q_i,Q_j\)
+        \begin{equation*}
+            p \in Q_i, \ q \in Q_j, \ \forall a \in \Sigma: \ Q_i \overset{a}{\to} Q_j \ \Leftrightarrow \ p \overset{a}{\to} q 
+        \end{equation*}
+        Tenslotte, twee verschillende toestanden $Q_i, Q_j$ bevatten $f$-verschillende toestanden. Aangezien de $f$-strings van $Q_i$ en $Q_j$ die van hun elementen zijn, zijn ze $f$-verschillend.
+        \item    
+        Veronderstel dat \(Q_1 = \{q_s,q_1, \ldots, q_n\}\) waarbij \(q_s\) de starttoestand is. 
+        Stel dat \(N_2 = (Q_2,\Sigma, \delta_2, q_s, F_2)\) een DFA is met minder toestanden dan $N$.
+        Vermits in $N$ elke toestand bereikbaar is, bestaan er strings \(\forall i \in \mathbb{N}_0^+: s_i\) zodanig dat \(\delta_1^*(q_s,s_i) = q_i\). 
+        Vermits \(N_2\) minder toestanden heeft moet voor een \(i \neq j: \delta_2^*(p_s,s_i) = \delta_2^*(p_s,s_j)\). Vermits \(q_i\) en \(q_j\)
+        $f$-verschillend zijn, is er een string \(s\) zodat \(\delta_1^*(q_i,s) \in F_1\) en \(\delta_1^*(q_j,s) \notin F_1\) of omgekeerd.
+        Dus ook \(\delta_1^*(q_s,s_is) \in F_1\) en \(\delta_1^*(q_s,s_js) \notin F_1\) of omgekeerd. Dit betekent dat DFA$_1$ van de strings $s_is$ en $s_js$ er juist één accepteert.
+        Maar N$_2$ zal beide strings $s_is$ en $s_js$ accepteren of geen van beiden, aangezien het parsen van $s_i$ en $s_j$ naar dezelfde node leidt, waarna hetzelfde pad gevolgd wordt om $v$ te parsen.
+        Dus kunnen de DFA's N en N$_2$ niet dezelfde taal bepalen.
+    \end{itemize}
 \end{prf}
 
 \begin{theo}[DFA isomorfisme]{DFA isomorfisme}
-    Een DFA$_1 = (Q_1,\Sigma, \delta_1, q_{s_1}, F_1)$ is \textbf{isomorf} met een DFA$_2 = (Q_2,\Sigma, \delta_2, q_{s_2}, F_2)$ als er een bijectie $b: Q_1 \to Q_2$ bestaat zodanig dat
+    Een DFA $N_1 = (Q_1, \Sigma, \delta_1, q_{s_1}, F_1)$ is \textbf{isomorf} met een DFA $N_2 = (Q_2, \Sigma, \delta_2, q_{s_2}, F_2)$ als er een bijectie $b: Q_1 \to Q_2$ bestaat zodanig dat
     \begin{itemize}
         \item $b(F_1) = F_2$
         \item $b(q_{s_1}) = q_{s_2}$
@@ -342,3 +357,55 @@
 \subsection{Myhill-Nerode relaties op $\Sigma^*$}
 
 \vspace{0.5cm}
+
+\begin{theo}[Fijnheid van partities]{Fijnheid van partities}
+    Een partitie $P_1$ is \textbf{fijner} dan een partitie $P_2$ indien
+    \begin{equation*}
+        \forall x \in P_1,\ \exists y \in P_2: \ x \subseteq y
+    \end{equation*}
+    Het omgekeerde van fijn is \textbf{grof}.
+\end{theo}
+
+\newpage
+
+\begin{theo}[$\sim_{\text{DFA}}$]{DFAeqklassen}
+    Voor een DFA $N = (Q, \Sigma, \delta, q_s, F)$ definiëren we de relatie $\sim_{\text{DFA}}$ op $\Sigma^*$ als volgt:
+    \begin{equation*}
+        x \sim_{\text{DFA}} y \ \Leftrightarrow \ \delta^*(q_s,x) = \delta^*(q_s,y)
+    \end{equation*}
+    In woorden: er geldt $x \sim_{\text{DFA}} y$ als en slechts als het parsen van $x$ en $y$ vanuit $q_s$ leidt tot dezelfde toestand $q$, dus $x,y \in \text{reach}(q)$.
+\end{theo}
+
+\begin{pro}[$\sim_{\text{DFA}}$]{pro - DFAeqklassen}
+    \begin{itemize}
+        \item Rechtscongruentie van $\sim$: $\forall x,y \in \Sigma^*, \ a \in \Sigma: \ x \sim y \ \Rightarrow \ xa \sim ya $
+        \item het aantal equivalentieklassen van $\sim$ is eindig, m$.$a$.$w$.$ $\sim$ heeft een eindige index
+        \item $\sim$ verfijnt $\sim_L$, of: $x \sim y \ \Rightarrow \ x \sim_L y$
+    \end{itemize}
+\end{pro}
+
+\begin{theo}[Myhill-Nerode relatie]{Myhill-Nerode relatie}
+    Een equivalentierelatie $\sim$ tussen strings is een \textbf{Myhill-Nerode relatie} voor een taal $L$ als de equivalentieklasse
+    voldoet aan bovenstaande eigenschappen. We schrijven: $\sim$ is MN(L)
+\end{theo}
+
+\begin{lem}[DFA$_{\sim}^{\text{L}}$]{DFAsimL}
+    Gegeven een taal $L$ over $\Sigma$ en een MN(L)-relatie $\sim$ op $\Sigma^*$, dan is DFA$_{\sim}^{\text{L}} = (Q, \Sigma, \delta, q_s, F)$ een DFA die L bepaalt, waarbij
+    \begin{itemize}
+        \item $Q = \{x_{\sim} \ | \ x \in \Sigma^* \}$
+        \item $\delta(x_{\sim},a) = (xa)_{\sim}$
+        \item $q_s = \epsilon_{\sim}$
+        \item $F = \{x_{\sim} \ | \ x \in L \}$
+    \end{itemize}  
+    \vspace{-0.3cm}
+\end{lem}
+
+\begin{prf}[DFA$_{\sim}^{\text{L}}$]{prf - DFAsimL}
+    Dat $\delta$ goed gedefinieerd is, kan je bewijzen door gebruik te maken van de rechtse congruentie van $\sim$.
+    Verder zijn alle ingrediënten van de DFA duidelijk, in het bijzonder ook dat $Q$ slechts een eindig aantal toestanden bevat.
+    We moeten nog bewijzen dat $L_{\text{DFA}_{\sim}^{\text{L}}} = L$:
+    \begin{equation*}
+        x \in L_{\text{DFA}_{\sim}^{\text{L}}} \ \Leftrightarrow \ \delta^*(q_s,x) \in F \ \Leftrightarrow \ x_{\sim} \in F \ \Leftrightarrow \ x \in L
+    \end{equation*}
+    De middelste overgang bekom je door met inductie op de lengte van de string $x$ te bewijzen dat $\delta^*(\epsilon_{\sim},x) = (x)_{\sim}$.
+\end{prf}
