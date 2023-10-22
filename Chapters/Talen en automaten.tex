@@ -247,6 +247,27 @@
     we de unieke toestand q zodat \(p \overset{a}{\to} q\) dan ook noteren als \(\delta(p,a)\).
 \end{theo}
 
+\begin{pro}[Doorsnede, verschil en complement van DFA's]{Doorsnede, verschil en complement van DFA's}
+    \underline{Gegeven}: ${\text{DFA}}_1 = (Q_1,\Sigma, \delta_1, q_{s_1}, \{q_{f_1}\})$ en ${\text{DFA}}_2 = (Q_2,\Sigma, \delta_2, q_{s_2}, \{q_{f_2}\})$ \\
+
+    We maken een generische pdoruct DFA $(Q,\Sigma, \delta, q_s, F)$ als volgt:
+    \begin{itemize}
+        \item $Q = Q_1 \times Q_2$
+        \item $\delta(p \times q, x) = \delta_1(p,x) \times \delta_2(q,x)$
+        \item $q_s = (q_{s_1},q_{s_2})$
+        \item 
+            Om tot een volledig definitie te komen, moeten we nog $F$ bepalen:
+            \begin{itemize}
+                \item $F = F_1 \times F_2$: de DFA is de doorsnede van de twee talen
+                \item $F = (F_1 \times Q_2) \cup (Q_1 \times F_2)$: de DFA is nu de unie van de twee talen
+                \item $\forall i \neq j \in [1,2]: \ F =  F_i \times (Q_j \times F_j)$: de DFA bepaalt nu de strings die tot $L_i$ behoren, maar niet tot $L_j$
+                \item $F = (Q_1 \backslash F_1) \times (Q_2 \backslash F_2)$: de DFA bepaalt nu de strings die tot geen van beide talen behoren.
+            \end{itemize}
+    \end{itemize}
+    Hieruit volgt ook dat de unie, doorsnede en complement van twee reguliere talen ook regulier zijn. Daaruit volgt ook dat het
+    complement van een reguliere taal ook regulier is, want $\overline{L} = \Sigma^* \backslash L$.
+\end{pro}
+
 \begin{lem}[DFA en NFA equivalentie]{DFA en NFA equivalentie}
     Elke NFA is equivalent met een DFA, m$.$a$.$w$.$ we kunnen elke NFA \((Q, \Sigma, \delta, q_s, F)\) herleiden tot een
     equivalente DFA \((Q', \Sigma, \delta', q_s', F')\) waarbij
@@ -260,6 +281,8 @@
     \vspace{-0.3cm}
 \end{lem}
 
+\newpage
+
 \begin{prf}[DFA en NFA equivalentie]{prf - DFA en NFA equivalentie}
     Uit constructie volgt dat de geconstrueerde automaat \((Q', \Sigma, \delta', q_s', F')\) een DFA is.
     Wat betreft equivalentie, moeten we verifiëren dat \(\forall w \in \Sigma^*:  q_s \overset{w}{\rightsquigarrow} F \Leftrightarrow q_s' \overset{w}{\rightsquigarrow} F'\). 
@@ -267,10 +290,6 @@
     Dit is eenvoudig inductief te bewijzen gebruik makend van het feit dat \(q' = q_w' \Rightarrow \delta'(q',a) = q_{wa}'\). Dan geldt dat de 
     DFA een string $w$ aanvaardt als voor de unieke toestand \(q'\) zodat \(q_s' \overset{w}{\rightsquigarrow} q'\) geldt dat \(q' \cap F \neq \emptyset \ \Leftrightarrow \ q_w' \cap F \neq \emptyset \ \Leftrightarrow\) de NFA aanvaardt w.
 \end{prf}
-
-\begin{theo}[Minimale DFA]{Minimale DFA}
-    Een DFA is minimaal als er geen enkele andere DFA bestaat die dezelfde taal bepaalt en minder toestanden heeft.
-\end{theo}
 
 \begin{theo}[$f$-string]{f-string}
     We noemen een string $s$ een $f$-string vanuit $q$ van de DFA indien \(\delta^*(q,s) \in F\), t$.$t$.$z$.$ indien er een pad is van $q$ naar een toestand van $F$ die s genereert. $F$-gelijke toestanden
@@ -303,7 +322,10 @@
         \item Als $p$ en $q$ $f$-gelijk zijn, en $p \in F$ dan is $\epsilon$ een $f$-string van $p$ en dus ook van $q$. Aangezien er in een DFA geen $\epsilon$-bogen zijn, is $q \in F$.
               Hetzelfde geldt in de andere richting. 
     \end{itemize}
+    \vspace{-0.5cm}
 \end{prf}
+
+\newpage
 
 \begin{theo}[Minimale DFA]{Minimale DFA}
     Een DFA is minimaal als er geen enkele andere DFA bestaat die dezelfde taal bepaalt en minder toestanden heeft, m$.$a$.$w$.$ 
@@ -318,8 +340,6 @@
         dan bestaat er geen machine met strikt minder toestanden die dezelfde taal bepaalt.
     \end{itemize}
 \end{lem}
-
-\newpage
 
 \begin{prf}[DFA$_{\text{min}}$]{prf - minDFA}
     \begin{itemize}
@@ -344,6 +364,8 @@
     \end{itemize}
 \end{prf}
 
+\newpage
+
 \begin{theo}[DFA isomorfisme]{DFA isomorfisme}
     Een DFA $N_1 = (Q_1, \Sigma, \delta_1, q_{s_1}, F_1)$ is \textbf{isomorf} met een DFA $N_2 = (Q_2, \Sigma, \delta_2, q_{s_2}, F_2)$ als er een bijectie $b: Q_1 \to Q_2$ bestaat zodanig dat
     \begin{itemize}
@@ -365,8 +387,6 @@
     \end{equation*}
     Het omgekeerde van fijn is \textbf{grof}.
 \end{theo}
-
-\newpage
 
 \begin{theo}[$\sim_{\text{DFA}}$]{DFAeqklassen}
     Voor een DFA $N = (Q, \Sigma, \delta, q_s, F)$ definiëren we de relatie $\sim_{\text{DFA}}$ op $\Sigma^*$ als volgt:
@@ -410,8 +430,6 @@
     De middelste overgang bekom je door met inductie op de lengte van de string $x$ te bewijzen dat $\delta^*(\epsilon_{\sim},x) = (x)_{\sim}$.
 \end{prf}
 
-\newpage
-
 \begin{lem}[$\sim_{\text{DFA}}$ en $\sim$ zijn elkaars inverse]{simDFA en sim zijn elkaars inverse}
     Voor elke taal $L$ geldt dat de functie die DFA's van $L$ afbeeldt op de de overeenkomstige MN(L)-relatie $\sim_{\text{DFA}}$ en de functie 
     die MN(L)-relaties $\sim$ afbeeldt op de overeenkomstige DFA$_{\sim}^{\text{L}}$, elkaars inversen zijn op een DFA-isomorfisme na.
@@ -428,6 +446,8 @@
     \end{equation*}
     \vspace{-0.5cm}
 \end{lem}
+
+\newpage
 
 \begin{prf}[Infimumrelatie van Myhill-Nerode relaties]{prf - Infimumrelatie van Myhill-Nerode relaties}
     We zagen al dat het infimum van een niet lege verzameling $E$ van equivalentierelaties zelf ook een equivalentierelatie is.
@@ -459,4 +479,60 @@
     \end{itemize}
 \end{prf}
 
+\begin{pro}[MN(L) toebehorend aan een mininale DFA]{pro - MN(L) toebehorend aan een mininale DFA}
+    Het kan nu ook bewezen worden dat de MN(L) relatie die hoort bij de minimale DFA voldoet aan de volgende conditie:
+    \begin{equation*}
+        x \sim_{\text{inf}} y \ \Leftrightarrow \  \forall s \in \Sigma^*: \ ( xs \in L \Leftrightarrow ys \in L )
+    \end{equation*}
+    Het is een vorm van $f$-gelijkheid gedefinieerd op strings in plaats van op toestanden.
+\end{pro}
+
+\begin{lem}[Stelling van Myhill-Nerode]{Stelling van Myhill-Nerode}
+    Laat $L \subseteq \Sigma^*$ een taal zijn over $\Sigma$. De volgende drie uitspraken zijn dan equivalent:
+    \begin{itemize}
+        \item[$\Leftrightarrow$] $L$ is regulier
+        \item[$\Leftrightarrow$] er bestaat een Myhill-Nerode relatie voor $L$
+        \item[$\Leftrightarrow$] 
+            definieer $\sim$ op $\Sigma^*$ als volgt:
+            \begin{equation*}
+                x \sim y \ \Leftrightarrow \ \forall s \in \Sigma^*: \ ( xs \in L \Leftrightarrow ys \in L );
+            \end{equation*}
+            de relatie $\sim$ heeft een eindige index
+    \end{itemize}
+    \vspace{-0.3cm}
+\end{lem}   
+
+\subsection{Pompend lemma voor reguliere talen}
+
+\vspace{0.5cm}
+
+\begin{lem}[Pompend lemma voor reguliere talen]{Pompend lemma voor reguliere talen}
+    Voor een reguliere taal $L$ bestaan een pomplengte $d$, zodanig dat als $s \in L$ en $|s| \geq d$, 
+    dan bestaat er een verdeling van $s$ in stukken $x$, $y$ en $z$ zodanig dat $s = xyz$ en \\
+    \begin{minipage}{0.56\textwidth}
+        \begin{itemize}
+            \item $\forall i \in \mathbb{N}_0^+: \ xy^iz \in L$
+            \item $|y| > 0$
+            \item $|xy| \leq d$
+        \end{itemize}
+    \end{minipage}
+    \begin{minipage}{0.4\textwidth}
+       \hspace{1.25cm}\includegraphics[scale = 0.275]{Images/VerdelingStrings.png}
+    \end{minipage}
+    \vspace{-0.3cm}
+\end{lem}
+
+\begin{prf}[Pompend lemma voor reguliere talen]{prf - Pompend lemma voor reguliere talen}
+    Neem een DFA die $L$ bepaalt. Neem $d = \#Q$. Neem een willekeurige $s = a_1 \ldots a_n \in L$ met $n \geq d$.
+    Beschouw de accepterende sequentie
+    \begin{equation*}
+        q_s = q_0 \overset{a_1}{\to} q_1 \overset{a_2}{\to} \ldots \overset{a_n}{\to} q_n \in F
+    \end{equation*}
+    Deze rij van toestanden heeft lengte $n+1$, wat strikt groter is dan $d$. Neem de eerste $d+1$ toestanden van de deze rij,
+    dus $q_0,\ldots, q_d$. Er zijn maar $d$ verschillende toestanden, dus er zijn twee gelijke toestanden. 
+    Stel dat $q_i = q_j$ met $ 0 \leq i < j \leq d$, dan nemen we $x = a_1 \ldots a_i$, $y = a_{i+1} \ldots a_j$ en $z$ de rest van de string. 
+    Alles volgt nu direct, zie desnoods te illustratie in de stelling.
+\end{prf}
+
 \newpage
+
