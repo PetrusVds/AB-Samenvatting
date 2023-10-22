@@ -523,7 +523,7 @@
 \end{lem}
 
 \begin{prf}[Pompend lemma voor reguliere talen]{prf - Pompend lemma voor reguliere talen}
-    Neem een DFA die $L$ bepaalt. Neem $d = \#Q$. Neem een willekeurige $s = a_1 \ldots a_n \in L$ met $n \geq d$.
+    Neem een DFA die $L$ bepaalt, neem $d = \#Q$ en neem een willekeurige $s = a_1 \ldots a_n \in L$ met $n \geq d$.
     Beschouw de accepterende sequentie
     \begin{equation*}
         q_s = q_0 \overset{a_1}{\to} q_1 \overset{a_2}{\to} \ldots \overset{a_n}{\to} q_n \in F
@@ -534,5 +534,42 @@
     Alles volgt nu direct, zie desnoods te illustratie in de stelling.
 \end{prf}
 
+\subsection{Varianten van eindige toestandsautomaten}
+
+\vspace{0.5cm}
+
+\begin{theo}[Transducer]{Transducer}
+    \begin{minipage}{.66\textwidth}
+        Een transducer zet een string om in een andere: we passen de definitie van een DFA een beetje aan, zodat ook output kan geproduceerd worden
+        De labels zijn nu van de vorm $a/x$ waarbij $a$ in het inputalfabet zit en $x$ in een outputalfabet (inbegrepen de lege string). 
+        Wat voor de $/$ staat wordt gebruikt om de weg te vinden in de transducer alsof het een DFA was. Wat na de $/$ staat wordt op de output gezet als die boog genomen wordt. 
+        De transducer hiernaast accepteert elke string en geeft als output een 1 voor elke b die vlak na een a komt.
+    \end{minipage}
+    \begin{minipage}{.3\textwidth}
+        \vspace{-0.3cm}\hspace{0.3cm}\includegraphics[scale = 0.3]{Images/Transducer.png}
+    \end{minipage}
+\end{theo}
+
 \newpage
 
+\begin{theo}[Optelchecker]{Optelchecker}
+    \begin{minipage}{.75\textwidth}
+        Een DFA kan alleen gebruikt worden om te beslissen of een string behoort tot een taal.
+        Zo zou je kunnen een taal definiëren van strings die correcte optellingen voorstellen en als die taal regulier is er een DFA voor bouwen.
+        Hier is een poging: $\Sigma = \{0,1\}$. De twee getallen  die we willen optellen en het resultaat komen in binair, omgekeerd en we maken ze even lang door bij de kortste(n) wat leidende nullen toe te voegen.
+        Dus als we $3$ willen optellen bij $13$, met resultaat $16$, dan hebben we de drie bitstrings $11000$, $10110$ en $00001$. Die mengen we nu systematisch,
+        t$.$t$.$z$.$ we maken groepjes van $3$ bits die op de i-de plaats voorkomen en schrijven die groepjes achter elkaar. Dus we hebben 
+        \begin{equation*}
+            110  \ 100 \ 010 \ 010 \ 001
+        \end{equation*}
+        waarbij de blanco’s enkel dienen om de groepering per drie te laten zien. Dus de string 
+        \begin{equation*}
+            110100010010001
+        \end{equation*}
+        stelt de correcte optelling 3+13=16 voor.
+        Een DFA voor de taal van correcte optellingen staat in de figuur hiernaast.
+    \end{minipage}
+    \begin{minipage}{.21\textwidth}
+        \vspace{-0.3cm}\includegraphics[scale = 0.35]{Images/Optelchecker.png}
+    \end{minipage}
+\end{theo}
