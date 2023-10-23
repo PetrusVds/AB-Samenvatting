@@ -4,7 +4,7 @@
 # Editor-based HTTP Client requests
 /httpRequests/
 .idea/
-out/
 !out/main.pdf
+out/
 .DS_store
-# .gitignore
+.gitignore
