@@ -1,0 +1,119 @@
+\documentclass{exam}
+
+%------------------------------------------------
+%	            PACKAGES AND CONFIG
+%------------------------------------------------
+\usepackage{graphicx} % Required for inserting images
+\usepackage{amsmath}
+\usepackage{titling}
+\usepackage{caption}
+% \usepackage{dsfont}
+\usepackage{amsfonts}
+\usepackage{amsthm}
+\usepackage{hyperref}
+\usepackage[dutch]{babel}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{amssymb}
+\counterwithin*{equation}{section}% Reset equation at \section
+\counterwithin*{equation}{subsection}% Reset equation at \subsection
+\counterwithin*{equation}{subsubsection}% Reset equation at \subsubsection
+\setlength\parindent{0pt}
+\hypersetup{
+    colorlinks,
+    citecolor=black,
+    filecolor=black,
+    linkcolor=black,
+    urlcolor=black
+}
+
+%------------------------------------------------
+%	                COMMANDS
+%------------------------------------------------
+\renewcommand\maketitlehooka{\null\mbox{}\vfill}
+\renewcommand\maketitlehookd{\vfill\null}
+\newcommand{\RomanNumeralCaps}[1]{\MakeUppercase{\romannumeral#1}}
+\input{Commands/Setup}
+
+%------------------------------------------------
+%	                 COLORS
+%------------------------------------------------
+\definecolor{orange}{rgb}{1,0.5,0}
+
+%------------------------------------------------
+%	            START OF DOCUMENT
+%------------------------------------------------
+\title{Automaten en Berekenbaarheid}
+\author{Pieter Vanderschueren}
+\date{Academiejaar 2023-2024}
+
+\begin{document}
+
+\begin{titlingpage}
+\maketitle
+\end{titlingpage}
+
+\newpage
+
+%------------------------------------------------
+%	              INTRODUCTION
+%------------------------------------------------
+\vspace*{\fill}
+\begin{center}
+    
+\section*{Introductie}
+
+\end{center}
+\vspace*{\fill}
+
+%------------------------------------------------
+%	           TABLE OF CONTENTS
+%------------------------------------------------
+\newpage
+
+\tableofcontents
+
+\newpage
+
+%------------------------------------------------
+%	                INPUTS
+%------------------------------------------------
+
+\section{Talen en automaten}
+
+\vspace{0.5cm}
+
+\input{Chapters/Talen en automaten}
+
+\newpage
+
+\section{Talen en berekenbaarheid}
+
+\vspace{0.5cm}
+
+\input{Chapters/Talen en berekenbaarheid}
+
+\newpage
+
+\section{Herschrijfsystemen}
+
+\vspace{0.5cm}
+
+\input{Chapters/Herschrijfsystemen}
+
+\newpage
+
+\section{Andere rekenparadigmas}
+
+\vspace{0.5cm}
+
+\input{Chapters/Andere rekenparadigma's}
+
+\newpage
+
+\section{Talen en complexiteit}
+
+\vspace{0.5cm}
+
+\input{Chapters/Talen en complexiteit}
+
+\end{document}
