@@ -573,3 +573,163 @@
         \vspace{-0.3cm}\includegraphics[scale = 0.35]{Images/Optelchecker.png}
     \end{minipage}
 \end{theo}
+
+\begin{theo}[Optel-transducer]{Optel-transducer}
+    Optellen bestaat eigenlijk in: gegeven twee getallen als input, output de som. Dat kan met een transducer: gebruik dezelfde voorstelling van de twee getallen die je wil optellen als hiervoor, 
+    en meng die op dezelfde manier, dus 3+13 wordt voorgesteld als de string
+    \begin{equation*}
+        1110010100.
+    \end{equation*}
+    \begin{center}
+        \hspace{0.25cm}\includegraphics[scale = 0.45]{Images/OptelTranducers.png}
+    \end{center}
+\end{theo}
+
+\newpage
+
+\begin{theo}[Two-way finite automata]{Two-way finite automata}
+    Een DFA staat ook wel gekend als een one-way finite automata, omdat de input van links naar rechts gelezen wordt en de automaat niet terug kan gaan.
+    Een two-way finite automata 2DFA is een DFA die ook van rechts naar links kan lezen. De automaat kan dus terugkeren naar vorige toestanden.
+    \vspace{-0.05cm}
+\end{theo}
+
+\begin{theo}[Büchi automaten]{Büchi automaten}
+    Büchi automaten trekken op NFA's maar je geeft er geen eindige strings aan, wel oneindige lange: er is dus geen moment waarop je string eindigt bij het doorlopen.
+    De oneindige string $s$ wordt aanvaard indien de rij toestanden waarlangs je passeert oneindig dikwijls een aanvaardende toestand heeft.
+    \vspace{-0.05cm}
+\end{theo}
+
+\subsection{Contextvrije talen en hun grammatica}
+
+\vspace{0.5cm}
+
+\begin{theo}[Contextvrije grammatica - CFG]{Contextvrije grammatica - CFG}
+    Een contextvrije grammatica is een 4-tal $(V, \Sigma, R, S)$ waarbij
+    \begin{itemize}
+        \item $V$ een eindige verzameling is van niet-eindsymbolen of \textbf{variabelen}
+        \item $\Sigma$ een eindige alfabet is van eindsymbolen of \textbf{terminals}, disjunct met $V$
+        \item $R$ is een eindige verzameling van regels of \textbf{producties}: een regel is een koppel van één niet-eindsymbool en een strings van elementen uit $V \cup \Sigma_{\epsilon}$. 
+              We schrijven $u \to v$ voor een regel $(u,v)$.
+        \item $S \in V$ is het \textbf{startsymbool}
+    \end{itemize}
+    \vspace{-0.3cm}
+\end{theo}
+
+\begin{theo}[Afleiding m$.$b$.$v$.$ een CFG]{Afleiding m.b.v. een CFG}
+    Gegeven een CFG $(V, \Sigma, R, S)$. Een string $f$ over $V \cup \Sigma_{\epsilon}$ wordt afgeleid uit een string $b$ over $V \cup \Sigma_{\epsilon}$ 
+    m$.$b$.$v$.$ de CFG als er een eindige rij strings $s_0, \ldots, s_n$ bestaat zodanig dat
+    \begin{itemize}
+        \item $s_0 = b$
+        \item $s_n = f$
+        \item $\forall i \in [0,n-1]: \ s_i \to s_{i+1}$
+    \end{itemize} 
+    We noteren: $s_i \Rightarrow s_{i+1}$ en $b \Rightarrow^* f$. 
+    \vspace{-0.1cm}
+\end{theo}
+
+\begin{theo}[Taal bepaald door een CFG]{Taal bepaald door een CFG}
+    De taal $L_{\text{CFG}}$ bepaald door een CFG $(V, \Sigma, R, S)$ is de verzameling strings $s$ over $\Sigma$ zodanig dat $S \Rightarrow^* s$. In formulevorm:
+    \begin{equation*}
+        L = \{ w \in \Sigma^* \ | \ S \Rightarrow^* w \}
+    \end{equation*}
+    \vspace{-0.5cm}
+\end{theo}
+
+\newpage
+
+\begin{theo}[Contextvrije taal - CFL]{Contextvrije taal - CFL}
+    Een taal $L$ is \textbf{contextvrij} indien er een CFG bestaat die $L$ bepaalt, en dus $L = L_{\text{CFG}}$.
+\end{theo}
+
+\begin{theo}[Equivalente CFG's]{Equivalente CFG's}
+    Twee contextvrije grammatica's CFG$_1$ en CFG$_2$ zijn \textbf{equivalent} als ze dezelfde taal bepalen, en dus $L_{\text{CFG}_1} = L_{\text{CFG}_2}$.
+\end{theo}
+
+\begin{theo}[Chomsky normaalvorm]{Chomsky normaalvorm}
+    Een CFG $(V, \Sigma, R, S)$ heeft de \textbf{Chomsky normaalvorm} als elke regel één van de volgende vormen heeft:
+    \begin{itemize}
+        \item $A,B, \ C \in V: \ A \to BC$
+        \item $A \in V, \ \alpha \in \Sigma: \ A \to \alpha$ 
+        \item $S \to \epsilon$
+    \end{itemize}
+    \vspace{-0.3cm}
+\end{theo}
+
+\begin{lem}[Equivalente Chomsky normaalvorm]{Equivalente Chomsky normaalvorm}
+    Voor elke CFG $(V, \Sigma, R, S)$ bestaat er een equivalentie CFG in Chomsky normaalvorm.
+\end{lem}
+
+\newpage
+
+\begin{prf}[Equivalente Chomsky normaalvorm]{prf - Equivalente Chomsky normaalvorm}
+    We vertrekken van een willekeurige CFG en transformeren hem terwijl we equivalentie bewaren naar Chomsky Normaalvorm.
+    \begin{enumerate}
+        \item 
+            Vervang alle voorkomens van $S$ door een nieuw symbool $X$, en daarna voeg de regel $S \to X$ toe. Zo komt $S$ enkel links voor.
+            Zo wordt 1 van de voorwaarden voldaan. Deze stap is evident equivalentiebewarend.
+        \item 
+            Neem de verzameling van alle regels. Itereer de volgende operatie zo lang tot een fixpunt bereikt wordt:
+            \begin{itemize}
+                \item Selecteer een regel $A \to \epsilon$ en een regel $B \to \alpha A \beta$.
+                \item Voeg de regel $B \to \alpha\beta$ toe.
+            \end{itemize}
+            Deze stap is equivalentiebewarend. Daarvoor moet aangetoond worden dat elke iteratie equivalentiebewarend is. Kortom,
+            als $B \to \alpha A \beta$ toegevoegd wordt, dan kan een string geschreven worden met die regel als en slechts als de strings geschreven
+            kan worden zonder deze regel. Het is evident omdat het herschrijven met $B \to \alpha\beta$ kan gesimuleerd worden met $B \to \alpha a \beta$ en $A \to \epsilon$.
+            Tenslotte: verwijder alle regels $A \to \epsilon$ voor $A \neq S$. Ook deze stap is equivalentiebewarend. Neem een parsing boom
+            $S \to \ldots$; de wortel is $S$, elke node is gelabeld met een symbool $A$, elke node die geen blad is eheft een geordende rij kinderen
+            gelabeld $BC \ldots D$ zodat $A \to BC \ldots D$ een regel is, en de bladeren van de bomen vormen een sequentie van terminale symbolen. 
+            Dan is het vrij duidelijk dat elke string van de CFL zo'n parsing boom heeft. Ook dat deze boom kan hervormd worden tot een boom
+            die gebruik maakt van de toegevoegde regels en geen gebruik maakt van regels $A \to \epsilon$.
+        \item
+            Nu willen we afgeraken van de regels van de vorm $A \to B$. Voor een regel van de vorm $\mathcal{E} = A \to B$ en een regel van de vorm
+            $\mathcal{R} = B \to \gamma$, definieer de regel $\mathcal{U}(\mathcal{E},\mathcal{R}) = A \to \gamma$. Zolang er regels van de vorm $\mathcal{E} = A \to B$ zijn (waaron $B$ ook een niet-terminal is)
+            en regels van de vorm $\mathcal{R} = B \to \gamma$ zijn, voeg de regel $\mathcal{U}(\mathcal{E},\mathcal{R})$ toe. Nadat dit eindigt, verwijderen we uit de bekomen grammatica alle regels van de vorm $A \to B$.
+            Deze stap is equivalentiebewarend. Neem een string $s$ die kan afgeleid worden met de regels van de vorm $A \to B$. Dan kan $s$ ook afgeleid worden zonder deze regels.
+        \item 
+            We hebben nu nog drie soorten regels te behandelen:
+            \begin{enumerate}
+                \item $A \to \gamma$ waar $\gamma$ uit juist twee niet-eindsymbolen bestaat.
+                \item $A \to \gamma$ waar $\gamma$ uit minstens twee symbolen bevat: vervang elke terminal $a$ door een niet-terminaal $A_a$ en voeg de regel $A_a \to a$ toe.
+                \item eventueel $S \to \epsilon$: die mag blijven.
+            \end{enumerate}
+        \item 
+            De regels van de vorm 
+            \begin{equation*}
+                n > 2: A \to X_1X_2 \ldots X_n
+            \end{equation*} 
+            vervang je door
+            \begin{equation*}
+                A \to X_1Y_1, \ Y_1 \to X_2Y_2, \ldots, \ Y_{n-2} \to X_{n-1}X_n
+            \end{equation*}
+    \end{enumerate}
+    Hierbij is het duidelijk dat bij de transformatie naar de Chomsky Normaalvorm de grammatica equivalent blijft.
+\end{prf}
+
+\subsection{Push-down automaat}
+
+\vspace{0.5cm}
+
+\begin{theo}[Aanvaarding van een string $s$ door een PDA]{Aanvaarding van een string s door een PDA}
+    Een string $s$ wordt aanvaard door een PDA indien $s$ kan worden opgesplitst in delen $i \in [1,m]: \ w_i \in \Sigma_\epsilon$, er toestanden $j \in [0,n]: \ q_j$ zijn en 
+    stacks $k \in [0,m]: \ \text{stack}_k \in \Gamma^*$, zodanig dat 
+    \begin{itemize}
+        \item $\text{stack}_0 = \epsilon$: de stack is leeg in het begin
+        \item $q_0 = q_s$: we vertrekken in de begintoestand
+        \item $q_m \in F$: we komen aan in een eindtoestand met een lege string
+        \item $x,y \in \Gamma_\epsilon: \ (q_{i+1},y) \in \delta(q_i,w_{i+1},x)$ en $x,y \in \Gamma_\epsilon, \ t \in \Gamma^*: \ \text{stack}_i = xt, \ \text{stack}_{i+1} = yt$
+        % \item $x,y \in \Gamma_\epsilon, \ t \in \Gamma^*: \ \text{stack}_i = xt, \ \text{stack}_{i+1} = yt$.
+    \end{itemize}  
+\end{theo}
+
+\begin{theo}[Taal bepaald door een PDA]{Taal bepaald door een PDA}
+    De taal $L$ bepaald door een PDA bestaat uit alle strings die door de PDA aanvaard worden.
+\end{theo}
+
+\subsection{Equivalentie van CFG en PDA}
+
+\vspace{0.5cm}
+
+\begin{lem}[Equivalentie van CFG en PDA]{Equivalentie van CFG en PDA}
+    Elke push-down automaat bepaalt een contextvrije taal en elke contextvrije taal wordt bepaald door een push-down automaat.
+\end{lem}
