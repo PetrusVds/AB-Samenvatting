@@ -124,7 +124,7 @@
     % \vspace{-0.3cm}
 \end{theo}
     
-\begin{theo}[Een string $s$ wordt aanvaard door een NFA]{Een string s wordt aanvaard door een NFA}
+\begin{theo}[Aanvaarden van strings in een NFA]{Aanvaarden van strings in een NFA}
     Een string $s$ wordt aanvaard door een NFA $(Q,\Sigma, \delta, q_s, F)$ indien
     er een sequentie $q_s = q_0 \overset{a_0}{\to} \ldots \overset{a_{n-1}}{\to} q_n$
     van overgangen bestaat met $q_n \in F$ zodat s de $\epsilon$-compressie is van $a_0 \ldots a_{n-1}$. \\
@@ -134,7 +134,7 @@
     de $\epsilon$-compressie is van $a_0 \ldots a_{n-1}$.
 \end{theo}
 
-\begin{theo}[De taal door een NFA $M$ bepaald]{De taal door een NFA M bepaald}
+\begin{theo}[Taal $L$ bepaald door een NFA $M$]{Taal L bepaald door een NFA M}
     Een taal $L$ wordt bepaald door een NFA $M$, indien $L$ de verzameling van strings is die $M$ aanvaardt.
     We noteren de taal van $M$ als $L_M$.
 \end{theo}
@@ -149,7 +149,7 @@
 
 \vspace{0.5cm}
 
-\begin{pro}[De unie van twee NFA's]{De unie van twee NFA's}
+\begin{pro}[Unie van twee NFA's]{Unie van twee NFA's}
     \underline{Gegeven}: $i \in \{1,2\}: \ \text{NFA}_i = (Q_i,\Sigma, \delta_i, q_{s_i}, \{q_{f_i}\})$ \\
     
     % $\text{NFA}_1 = (Q_1,\Sigma, \delta_1, q_{s_1}, \{q_{f_1}\})$ en $\text{NFA}_2 = (Q_2,\Sigma, \delta_2, q_{s_2}, \{q_{f_2}\})$ \\
@@ -174,7 +174,7 @@
     \end{minipage}
 \end{pro}
 
-\begin{pro}[De concatenatie van twee NFA's]{De concatenatie van twee NFA's}
+\begin{pro}[Concatenatie van twee NFA's]{Concatenatie van twee NFA's}
     \underline{Gegeven}: $i \in \{1,2\}: \ \text{NFA}_i = (Q_i,\Sigma, \delta_i, q_{s_i}, \{q_{f_i}\})$ \\
 
     De concatenatie $\text{NFA}_1\text{NFA}_2$ is de $\text{NFA} = (Q,\Sigma, \delta, q_s, F)$ waarbij \\
@@ -213,7 +213,7 @@
     % \end{center}
 \end{pro}
 
-\begin{pro}[De ster van een NFA]{De ster van een NFA}
+\begin{pro}[Kleene ster van een NFA]{Kleene ster van een NFA}
     \underline{Gegeven}: $\text{NFA}_1 = (Q_1,\Sigma, \delta_1, q_{s_1}, \{q_{f_1}\})$ \\
 
     De Kleene ster $\text{NFA}_1^*$ is de NFA $= (Q,\Sigma, \delta, q_s, F)$ waarbij \\
@@ -258,7 +258,7 @@
 
 \vspace{0.5cm}
 
-\begin{theo}[Van RE naar NFA]{Van RE naar NFA}
+\begin{theo}[RE $\to$ NFA]{RE naar NFA}
     We hebben alle ingrediënten om van een reguliere expressie RE een NFA te maken, en zodanig dat de $L_{RE} = L_{NFA}$.
     Vermits reguliere expressies inductief gedefinieerd zijn zullen we voor elk lijntje van die definitie een overeenkomstige NFA definiëren.
     De drie basisgevallen $\epsilon$, $\phi$ en $a \in \Sigma$ zijn triviaal te modeleren als NFA.
@@ -317,20 +317,25 @@
             \item Voor elke boog die ontbreekt tussen twee toestanden om een GNFA te bekomen, voer een \(\phi\)-boog in
         \end{itemize}
         \item Reduceer de GNFA: \vspace{0.3cm} \\
-            \begin{minipage}{.453\textwidth} 
+            % \begin{minipage}{.453\textwidth} 
                 Kies een willekeurige toestand \(X\) verschillend van de start- of eindtoestand, ga naar stap 3 als dit niet mogelijk is.
                 Voor elk paar toestanden \(A\) en \(B\) (let op: \(A\) = \(B\) is geldig) verschillend van X bevat de GNFA een unieke boog \(A \to B\) met label \(E_{4}\), 
                 \(A \to X\) met label \(E_{1}\), \(X \to X\) met label \(E_{2}\) en \(X \to B\) met label \(E_{3}\). Vervang het label op de boog \(A \to B\) door \(E_{4} | E_{1}E_{2}^{*}E_{3}\).
                 Doe dit voor alle keuzes voor A en B. Verwijder daana de knoop X en herhaal.
-            \end{minipage}
-            \begin{minipage}{.43\textwidth}
-                \hspace{0.3cm}\includegraphics[scale = 0.375]{Images/GNFAToestandVerwijderen}
-            \end{minipage}
+            % \end{minipage}
+            % \begin{minipage}{.43\textwidth}
+            %     \hspace{0.3cm}\includegraphics[scale = 0.375]{Images/GNFAToestandVerwijderen}
+            % \end{minipage}
+                \begin{center}
+                    \includegraphics[scale = 0.375]{Images/GNFAToestandVerwijderen}
+                \end{center}
         \item Bepaal RE: de boog van de GNFA heeft als label de gezochte RE
     \end{enumerate}
 \end{alg}
 
-\newpage
+\begin{lem}[Taal herkend door een NFA]{Taal herkend door een NFA}
+    De taal herkend door de NFA is de taal van de berekende reguliere expressie, en dus bepalen de twee geziene formalismen NFA en RE precies dezlfde klasse van talen: de reguliere talen.
+\end{lem}   
 
 \subsection{Deterministische eindige toestandsmachines}
 
@@ -344,10 +349,62 @@
     we de unieke toestand q zodat \(p \overset{a}{\to} q\) dan ook noteren als \(\delta(p,a)\).
 \end{theo}
 
-\begin{pro}[Doorsnede, verschil en complement van DFA's]{Doorsnede, verschil en complement van DFA's}
-    \underline{Gegeven}: ${\text{DFA}}_1 = (Q_1,\Sigma, \delta_1, q_{s_1}, \{q_{f_1}\})$ en ${\text{DFA}}_2 = (Q_2,\Sigma, \delta_2, q_{s_2}, \{q_{f_2}\})$ \\
+\newpage
 
-    We maken een generische pdoruct DFA $(Q,\Sigma, \delta, q_s, F)$ als volgt:
+\begin{alg}[NFA $\to$ DFA]{NFA naar DFA}
+    \vspace{-0.2cm}
+    Neem voor een willekeurige string $w \in \Sigma^*$ de verzameling $\{ q \ | \ q_s \overset{w}{\rightsquigarrow} q\}$ van toestanden vereikbaar met $w$. We noteren deze verzameling als $q_w'$. Deze verzameling dient in een DFA een singleton te zijn, dit sugereert de volgende werkwijze: we bouwen een nieuwe automaat $(Q', \Sigma,\delta',q_s',F')$ waarvan de toestandenovereenkomen met verzamelingen van toestanden van de NFA\@. We construeren die zodanig dat voor elke string $w$ geldt dat $q_s' \overset{w}{\rightsquigarrow} q_w'$ (in de DFA), i\@.e\@. $q_w'$ is de set van toestanden in de NFA die bereikbaar zijn vanaf de oorspronkelijke begintoestand $q_s$ met $w$.  We definiëren:
+    \begin{itemize}
+        \item 
+            $Q'$ als de verzameling van alle deelverzamelingen $q'$ van $Q$ die gesloten zijn onder $\epsilon$-bogen, dus
+            \begin{equation*}
+                p \in q' \ \land \ p \overset{\epsilon}{\to} q \ \Rightarrow \ q \in q'
+            \end{equation*}
+        \item 
+            $\delta': Q' \times \Sigma \rightarrow Q'$ als 
+                \begin{equation*}
+                    \delta'(q',a) = \{q \ | \ \exists p \in q': \ p \overset{a}{\rightsquigarrow} q \}
+                \end{equation*}
+        \item 
+            $q_s'$ als de verzameling van $q_s$ en toestanden die bereikbaar zijn vanuit $q_s$ met $\epsilon$-bogen, dus
+            \begin{equation*}
+                q_s' = \{q_s,q \ | \ q_s \overset{\epsilon}{\rightsquigarrow} q \}
+            \end{equation*}
+        \item 
+            $F'$ als de verzameling van alle $q'$ zodat $q' \cap F \neq \emptyset$, dus
+            \begin{equation*}
+                F' = \{q' \in Q' \ | \ q' \cap F \neq \emptyset \}
+            \end{equation*}
+    \end{itemize}
+    Uit constructie volgt dat deze automaat $(Q', \Sigma,\delta',q_s',F')$ een DFA is.
+\end{alg}
+
+\begin{lem}[DFA en NFA equivalentie]{DFA en NFA equivalentie}
+    De geconstrueerde DFA $(Q', \Sigma,\delta',q_s',F')$ is equivalent met de NFA $(Q, \Sigma, \delta, q_s, F)$. 
+\end{lem}
+
+\begin{prf}[DFA en NFA equivalentie]{prf - DFA en NFA equivalentie}
+    We moeten verifiëren dat 
+    \begin{equation*}
+        \forall w \in \Sigma^*: \ q_s' \overset{w}{\rightsquigarrow} F' \ \Leftrightarrow \ q_s \overset{w}{\rightsquigarrow} F
+    \end{equation*}
+    De essentie van dat bewijs is dat 
+    \begin{equation*}
+        \forall w \in \Sigma^*: \ q_s' \overset{w}{\rightsquigarrow} q' \ \text{(in de DFA)} \ \ \Leftrightarrow \ q' = q_w = \{q \ | \ q_s \overset{w}{\rightsquigarrow} q\} \ \text{(in de NFA)} \
+    \end{equation*}
+     Dit is eenvoudig inductief te bewijzen gebruik makend van het feit dat $q' = q_w' \Rightarrow \delta'(q',a) = q_{wa}'$. Dan geldt dat de DFA een string $w$ aanvaardt als voor de unieke toestand $q'$ zodat $q_s' \overset{w}{\rightsquigarrow} q'$ geldt dat $q' \cap F \neq \emptyset \ \Leftrightarrow \ q_w' \cap F \neq \emptyset \ \Leftrightarrow \ q_s \overset{w}{\rightsquigarrow} F$.
+\end{prf}
+
+\begin{lem}[Taal bepaald door een DFA]{Taal herkend door een DFA}
+    De taal bepaald door een DFA is een reguliere taal.
+\end{lem}  
+
+\newpage
+
+\begin{pro}[Doorsnede, verschil en complement van DFA's]{Doorsnede, verschil en complement van DFA's}
+    \underline{Gegeven}: $i \in \{1,2\}: \ {\text{DFA}}_i = (Q_i,\Sigma, \delta_i, q_{s_i}, \{q_{f_i}\})$ \\
+
+    We maken een generische product DFA $(Q,\Sigma, \delta, q_s, F)$ als volgt:
     \begin{itemize}
         \item $Q = Q_1 \times Q_2$
         \item $\delta(p \times q, x) = \delta_1(p,x) \times \delta_2(q,x)$
@@ -365,28 +422,26 @@
     complement van een reguliere taal ook regulier is, want $\overline{L} = \Sigma^* \backslash L$.
 \end{pro}
 
-\begin{lem}[DFA en NFA equivalentie]{DFA en NFA equivalentie}
-    Elke NFA is equivalent met een DFA, m$.$a$.$w$.$ we kunnen elke NFA \((Q, \Sigma, \delta, q_s, F)\) herleiden tot een
-    equivalente DFA \((Q', \Sigma, \delta', q_s', F')\) waarbij
-    \begin{itemize}
-        \item \(Q'\): de verzameling van alle deelverzamelingen $q'$ van $Q$ die gesloten zijn onder \(\epsilon\)-bogen, dus
-              \(p \in q' \ \wedge \ p \overset{\epsilon}{\to} q \ \Rightarrow \ q \in q'\)
-        \item \(\delta': Q' \times \Sigma \rightarrow Q'\)
-        \item \(q_{s}' = \{q_s,q \ | \ q_s \overset{\epsilon}{\rightsquigarrow} q \}\)
-        \item \(F' = \{q' \in Q' \ | \ q' \cap F \neq \emptyset \}\)
-    \end{itemize}
-    \vspace{-0.3cm}
-\end{lem}
+% \begin{lem}[DFA en NFA equivalentie]{DFA en NFA equivalentie}
+%     Elke NFA is equivalent met een DFA, m$.$a$.$w$.$ we kunnen elke NFA \((Q, \Sigma, \delta, q_s, F)\) herleiden tot een
+%     equivalente DFA \((Q', \Sigma, \delta', q_s', F')\) waarbij
+%     \begin{itemize}
+%         \item \(Q'\): de verzameling van alle deelverzamelingen $q'$ van $Q$ die gesloten zijn onder \(\epsilon\)-bogen, dus
+%               \(p \in q' \ \wedge \ p \overset{\epsilon}{\to} q \ \Rightarrow \ q \in q'\)
+%         \item \(\delta': Q' \times \Sigma \rightarrow Q'\)
+%         \item \(q_{s}' = \{q_s,q \ | \ q_s \overset{\epsilon}{\rightsquigarrow} q \}\)
+%         \item \(F' = \{q' \in Q' \ | \ q' \cap F \neq \emptyset \}\)
+%     \end{itemize}
+%     \vspace{-0.3cm}
+% \end{lem}
 
-\newpage
-
-\begin{prf}[DFA en NFA equivalentie]{prf - DFA en NFA equivalentie}
-    Uit constructie volgt dat de geconstrueerde automaat \((Q', \Sigma, \delta', q_s', F')\) een DFA is.
-    Wat betreft equivalentie, moeten we verifiëren dat \(\forall w \in \Sigma^*:  q_s \overset{w}{\rightsquigarrow} F \Leftrightarrow q_s' \overset{w}{\rightsquigarrow} F'\). 
-    De essentie van dat bewijs is dat voor elke \(w \in \Sigma^*\), als in de DFA geldt dat \(q_s' \overset{w}{\rightsquigarrow} q\) (in de DFA) dan is \(q\ = q_w = \{ q \ | \ q_s \overset{w}{\rightsquigarrow} q \}\) (in de NFA).
-    Dit is eenvoudig inductief te bewijzen gebruik makend van het feit dat \(q' = q_w' \Rightarrow \delta'(q',a) = q_{wa}'\). Dan geldt dat de 
-    DFA een string $w$ aanvaardt als voor de unieke toestand \(q'\) zodat \(q_s' \overset{w}{\rightsquigarrow} q'\) geldt dat \(q' \cap F \neq \emptyset \ \Leftrightarrow \ q_w' \cap F \neq \emptyset \ \Leftrightarrow\) de NFA aanvaardt w.
-\end{prf}
+% \begin{prf}[DFA en NFA equivalentie]{prf - DFA en NFA equivalentie}
+%     Uit constructie volgt dat de geconstrueerde automaat \((Q', \Sigma, \delta', q_s', F')\) een DFA is.
+%     Wat betreft equivalentie, moeten we verifiëren dat \(\forall w \in \Sigma^*:  q_s \overset{w}{\rightsquigarrow} F \Leftrightarrow q_s' \overset{w}{\rightsquigarrow} F'\). 
+%     De essentie van dat bewijs is dat voor elke \(w \in \Sigma^*\), als in de DFA geldt dat \(q_s' \overset{w}{\rightsquigarrow} q\) (in de DFA) dan is \(q\ = q_w = \{ q \ | \ q_s \overset{w}{\rightsquigarrow} q \}\) (in de NFA).
+%     Dit is eenvoudig inductief te bewijzen gebruik makend van het feit dat \(q' = q_w' \Rightarrow \delta'(q',a) = q_{wa}'\). Dan geldt dat de 
+%     DFA een string $w$ aanvaardt als voor de unieke toestand \(q'\) zodat \(q_s' \overset{w}{\rightsquigarrow} q'\) geldt dat \(q' \cap F \neq \emptyset \ \Leftrightarrow \ q_w' \cap F \neq \emptyset \ \Leftrightarrow\) de NFA aanvaardt w.
+% \end{prf}
 
 \begin{theo}[$f$-string]{f-string}
     We noemen een string $s$ een $f$-string vanuit $q$ van de DFA indien \(\delta^*(q,s) \in F\), t$.$t$.$z$.$ indien er een pad is van $q$ naar een toestand van $F$ die s genereert. $F$-gelijke toestanden
@@ -419,29 +474,27 @@
         \item Als $p$ en $q$ $f$-gelijk zijn, en $p \in F$ dan is $\epsilon$ een $f$-string van $p$ en dus ook van $q$. Aangezien er in een DFA geen $\epsilon$-bogen zijn, is $q \in F$.
               Hetzelfde geldt in de andere richting. 
     \end{itemize}
-    \vspace{-0.5cm}
+    \vspace{-0.3cm}
 \end{prf}
 
-\newpage
-
-\begin{theo}[Minimale DFA]{Minimale DFA}
-    Een DFA is minimaal als er geen enkele andere DFA bestaat die dezelfde taal bepaalt en minder toestanden heeft, m$.$a$.$w$.$ 
-    DFA$_{\text{min}}$ is een DFA, equivalent met DFA, en alle toestanden zijn $f$-verschillend.
-    \vspace{-0.3cm}
-\end{theo}
+% \begin{theo}[Minimale DFA]{Minimale DFA}
+%     Een DFA is minimaal als er geen enkele andere DFA bestaat die dezelfde taal bepaalt en minder toestanden heeft, m$.$a$.$w$.$ 
+%     DFA$_{\text{min}}$ is een DFA, equivalent met DFA, en alle toestanden zijn $f$-verschillend.
+%     \vspace{-0.3cm}
+% \end{theo}
 
 \begin{lem}[DFA$_{\text{min}}$]{minDFA}
     \begin{itemize}
         \item DFA$_{\text{min}}$ is een DFA, equivalent met DFA, en alle toestanden zijn $f$-verschillend.
-        \item Als een DFA $N$ = $(Q_1,\Sigma, \delta_1, q_s, F_1)$  een DFA is zonder onbereikbare toestanden en waarin elke twee toestanden $f$-verschillend zijn, 
-        dan bestaat er geen machine met strikt minder toestanden die dezelfde taal bepaalt.
+        \item Als een DFA $N$ = $(Q_1,\Sigma, \delta_1, q_s, F_1)$  een DFA is zonder onbereikbare toestanden en waarin elke twee toestanden $f$-verschillend zijn, dan bestaat er geen machine met strikt minder toestanden die dezelfde taal bepaalt. De DFA $N$ is dan een minimale DFA of DFA$_{\text{min}}$ voor deze taal.
     \end{itemize}
+    % \vspace{-0.3cm}
 \end{lem}
 
 \begin{prf}[DFA$_{\text{min}}$]{prf - minDFA}
     \begin{itemize}
         \item 
-        DFA$_min$ is een DFA omdat $f$-gelijkheid van toestanden $p$ en $q$ de $f$-gelijkheid van \(\delta(p,a)\) en \(\delta(q,a)\) impliceert. Het gevolg is dat verschillende bogen met hetzelfde symbool
+        DFA$_{\text{min}}$ is een DFA omdat $f$-gelijkheid van toestanden $p$ en $q$ de $f$-gelijkheid van \(\delta(p,a)\) en \(\delta(q,a)\) impliceert. Het gevolg is dat verschillende bogen met hetzelfde symbool
         vanuit $f$-gelijke $p$ en $q$ versmelten. Om aan te tonen dat DFA en DFA$_{\text{min}}$ equivalent zijn, is de essentiële eigenschap dat elke equivalentie-klasse $Q_i$ en elk element \(p \in Q_i\)
         dezelfde $f$-strings heeft. Dus heeft $\tilde{q}_s$ dezelfde $f$-strings als $q_s$, en deze verzameling is dus de taal die beide DFA's bepalen. Aantonen dat een string $w$ een $f$-string is van $Q_i$
         als en slechts als $w$ een $f$-string is van \(q \in Q_i\) gebeurt door inductie op de lengte van $w$, gebruikmakend van het feit dat voor elke \(Q_i,Q_j\)
@@ -459,6 +512,7 @@
         Maar N$_2$ zal beide strings $s_is$ en $s_js$ accepteren of geen van beiden, aangezien het parsen van $s_i$ en $s_j$ naar dezelfde node leidt, waarna hetzelfde pad gevolgd wordt om $v$ te parsen.
         Dus kunnen de DFA's N en N$_2$ niet dezelfde taal bepalen.
     \end{itemize}
+    \vspace{-0.3cm}
 \end{prf}
 
 \newpage
