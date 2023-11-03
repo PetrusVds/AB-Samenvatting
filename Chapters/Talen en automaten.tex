@@ -6,6 +6,10 @@
     Een \textbf{string} over een alfabet $\Sigma$ is een eindige opeenvolging van nul, één of meer elementen van $\Sigma$.
 \end{theo}
 
+\begin{app}[$\epsilon$-compressie van een string]{epsillon-compressie}
+    Als we uit een string $w \in \Sigma_{\epsilon}$ elk voorkomen van $\epsilon$ schrappen, wat resulteert in een nieuwe string $s$, dan noemen we $s$ de $\epsilon$-compressie van $w$. 
+\end{app}
+
 \begin{theo}[Taal $L$ over een alfabet $\Sigma$]{Taal L over een alfabet Sigma}
     Een \textbf{taal} $L$ over een alfabet $\Sigma$ is een verzameling van strings over $\Sigma$.
 \end{theo}
@@ -15,15 +19,13 @@
 \vspace{0.5cm}
 
 \begin{theo}[Een algebra- of algebraïsche structuur]{Een algebra- of algebraïsche structuur}
-    Een algebra- of algebraïsche structuur is een verzameling met daarop een aantal inwendige operaties:
-    dikwijls binaire operaties, maar unair of met grotere ariteit kan ook. Zo wordt de verzameling van
-    alle talen over een alfabet $\Sigma$ een algebra als we als operaties unie, doorsnede, complement, etc.\ definïeren.
-    Meer concreet: als $L_1$ en $L_2$ twee talen zijn, dan is
+    Een algebra- of algebraïsche structuur is een verzameling met daarop een aantal inwendige operaties: dikwijls binaire operaties, maar unair of met grotere ariteit kan ook. Zo wordt de verzameling van alle talen over een alfabet $\Sigma$ een algebra als we als operaties unie, doorsnede, complement, etc.\ definïeren. Meer concreet: als $L_1$ en $L_2$ twee talen zijn, dan is
     \begin{itemize}
         \item de unie ervan een taal: $L_1 \cup L_2$
         \item de doorsnede ervan een taal: $L_1 \cap L_2$
         \item het complement ervan een taal: $\overline{L_1}$
     \end{itemize}
+    \vspace{-0.3cm}
 \end{theo}
 
 \begin{pro}[Concatenatie van twee talen]{Concatenatie van twee talen}
@@ -32,18 +34,28 @@
     \begin{equation*}
         L_{1}L_{2} = \{ xy  \ | \ x \in L_1,  \ y \in L_2\}
     \end{equation*}
-    \vspace{-0.3cm}
-\end{pro}
-
-\begin{pro}[De Kleene ster van een taal]{De Kleene ster van een taa}
-    De Kleene ster van een taal wordt gedefinieerd als volgt:
-    \begin{equation*}
-        L^* = \cup_{n \geq 0}L^n
-    \end{equation*}
     \vspace{-0.5cm}
 \end{pro}
 
 \newpage
+
+\begin{pro}[Kleene ster van een taal]{Kleene ster van een taa}
+    De Kleene ster van een taal wordt gedefinieerd als volgt:
+    \begin{equation*}
+        L^* = \cup_{n \geq 0}L^n
+    \end{equation*}
+    \vspace{0.3cm}
+    \textbf{Opmerking:} $L^+ = LL^*$
+    \vspace{-0.3cm}
+\end{pro}
+
+\begin{app}[Kleene ster van een alfabet]{Kleene ster van een alfabet}
+    De verzameling van alle strings over een alfabet $\Sigma$ is de kleene ster van het aflabet $\Sigma^*$, en volgt dus dat
+    \begin{equation*}
+        L \in \mathcal{P}(\Sigma^*)
+    \end{equation*}
+    \vspace{-0.5cm}
+\end{app}
 
 \subsection{Reguliere expressies en reguliere talen}
 
@@ -75,7 +87,9 @@
     \vspace{-0.3cm}
 \end{theo}
 
-\subsection{Eindge toestandsautomaten}
+\newpage
+
+\subsection{Niet-deterministische eindge toestandsautomaten}
 
 \vspace{0.5cm}
 
@@ -84,33 +98,40 @@
 
     \vspace{0.5cm}
 
-    \begin{minipage}{.56\textwidth}
+    \begin{minipage}{.61\textwidth}
         \begin{itemize}
             \item $Q$ een eindige verzameling toestanden is
             \item $\Sigma$ is een eindig alfabet
-            \item $\delta$ is de overgangsrelatie van de automaat
+            \item $\delta \subseteq Q \times \Sigma_{\epsilon} \times Q$ is de overgangsrelatie van de automaat, wat kan worden voorgesteld in een transitietabel
             \item $q_s$ is de starttoestand
-            \item $F \subset Q$ is de verzameling eindtoestanden
+            \item $F \subseteq Q$ is de verzameling eindtoestanden
         \end{itemize}
     \end{minipage}
-    \begin{minipage}{.4\textwidth}
+    \hspace{0.3cm}
+    \begin{minipage}{.35\textwidth}
         \begin{center}
             \includegraphics[scale = 0.25]{Images/NFA}
         \end{center}
     \end{minipage}
+
+    \vspace{0.5cm}
+
+    \textbf{Opmerking:} In de literatuur wordt $\delta$ soms ook als een functie gedefinieerd die een toestand en een symbool afbeeldt op de verzameling van toestanden waarnaar een overgang mogelijk is:
+    \begin{equation*}
+        \delta(q,a) = \{ q' \in Q \ | \ (q,a,q') \in \delta \}.
+    \end{equation*}
+    We schrijven $p \overset{a}{\to} q$ om aan te geven dat $(p,a,q)$ een overgang is in $\delta$.
+    % \vspace{-0.3cm}
 \end{theo}
-
-\newpage
-
+    
 \begin{theo}[Een string $s$ wordt aanvaard door een NFA]{Een string s wordt aanvaard door een NFA}
     Een string $s$ wordt aanvaard door een NFA $(Q,\Sigma, \delta, q_s, F)$ indien
     er een sequentie $q_s = q_0 \overset{a_0}{\to} \ldots \overset{a_{n-1}}{\to} q_n$
-    van overgangen bestaat met $q_n \in F$ zodat s de $\epsilon$-compressie, wat bekomen wordt door
-    in $\epsilon$ te schrappen in de string, is van $a_0 \ldots a_{n-1}$. \\
+    van overgangen bestaat met $q_n \in F$ zodat s de $\epsilon$-compressie is van $a_0 \ldots a_{n-1}$. \\
     
     \noindent \textbf{Dus:} Voor toestanden $p$,$q$ en string $w \in \Sigma^*$ schrijven we $p \overset{w}{\rightsquigarrow} q$
     indien er een sequentie van overangen $ p \overset{a_0}{\to} \ldots \overset{a_{n-1}}{\to} q$ bestaat zodat $w$
-    de $\epsilon$-comprssie is van $a_0 \ldots a_{n-1}$.
+    de $\epsilon$-compressie is van $a_0 \ldots a_{n-1}$.
 \end{theo}
 
 \begin{theo}[De taal door een NFA $M$ bepaald]{De taal door een NFA M bepaald}
@@ -119,49 +140,118 @@
 \end{theo}
 
 \begin{theo}[Equivalentie van twee NFA's]{Equivalentie van twee NFA's}
-    Twee NFA's worden \textbf{equivalent} genoemd als ze dezelfde taal bepalen.
+    Twee NFA's worden \textbf{equivalent} genoemd als ze dezelfde taal bepalen, m$.$a$.$w$.$ elke equivalentieklassen van deze equivalentierelatie komt overeen met een taal.
 \end{theo}
+
+\newpage
 
 \subsection{De algebra van NFA's}
 
 \vspace{0.5cm}
 
 \begin{pro}[De unie van twee NFA's]{De unie van twee NFA's}
-    \underline{Gegeven}: ${NFA}_1 = (Q_1,\Sigma, \delta_1, q_{s_1}, \{q_{f_1}\})$ en ${NFA}_2 = (Q_2,\Sigma, \delta_2, q_{s_2}, \{q_{f_2}\})$ \\
+    \underline{Gegeven}: $i \in \{1,2\}: \ \text{NFA}_i = (Q_i,\Sigma, \delta_i, q_{s_i}, \{q_{f_i}\})$ \\
+    
+    % $\text{NFA}_1 = (Q_1,\Sigma, \delta_1, q_{s_1}, \{q_{f_1}\})$ en $\text{NFA}_2 = (Q_2,\Sigma, \delta_2, q_{s_2}, \{q_{f_2}\})$ \\
 
-    \begin{minipage}{.63\textwidth}
-        De unie ${NFA}_1 \cup {NFA}_2$ is de $NFA = (Q,\Sigma, \delta, q_s, F)$ waarbij
-
+    \begin{minipage}{.6\textwidth}
+        De unie $\text{NFA}_1 \cup \text{NFA}_2$ is de $\text{NFA} = (Q,\Sigma, \delta, q_s, F)$ waarbij 
         \begin{itemize}
-            \item $Q = Q_1 \cup Q_2 \cup \{ q_s, q_f \}$
-            \item $F = \{q_f\}$
-            \item $\delta$ is gedefnieerd als:
+            \item $Q = Q_1 \cup Q_2 \cup \{ q_s, q_f \}$, $F = \{q_f\}$
+            \item $\delta$  is gedefnieerd als:
             \begin{itemize}
-                \item $\forall q \in Q_{i} \backslash \{q_{f_{i}}\}, \ x \in \Sigma_{\epsilon}, \ i = 1,2: \ \delta(q,x) = \delta_i(q,x)$
+                \item $\forall x \in \Sigma: \delta(q_s, x) = \emptyset \ \land \ \delta(q_{f_{i}}, x) = \emptyset$
+                % \item $\forall x \in \Sigma: \delta(q_{f_{i}}, x) = \emptyset$
+                \item $\forall q \in Q_{i} \backslash \{q_{f_{i}}\}, \ x \in \Sigma_{\epsilon}: \ \delta(q,x) = \delta_i(q,x)$
                 \item $\delta(q_s, \epsilon) = \{q_{s_{1}}, q_{s_{2}}\}$
-                \item $\forall x \in \Sigma: \delta(q_s, x) = \emptyset$
-                \item $i = 1,2: \delta(q_{f_{i}}, \epsilon) = \{q_f\}$
-                \item $\forall x \in \Sigma, i = 1,2: \delta(q_{f_{i}}, x) = \emptyset$
+                \item $\delta(q_{f_{i}}, \epsilon) = \{q_f\}$
             \end{itemize}
         \end{itemize}
     \end{minipage}
-    \begin{minipage}{.33\textwidth}
+    % \hspace{-0.5cm}
+    \begin{minipage}{.36\textwidth}
         \includegraphics[scale = 0.225]{Images/UnieNFA}
     \end{minipage}
 \end{pro}
 
-\newpage
-
 \begin{pro}[De concatenatie van twee NFA's]{De concatenatie van twee NFA's}
-    \begin{center}
-        \includegraphics[scale = 0.35]{Images/ConcatNFA}
-    \end{center}
+    \underline{Gegeven}: $i \in \{1,2\}: \ \text{NFA}_i = (Q_i,\Sigma, \delta_i, q_{s_i}, \{q_{f_i}\})$ \\
+
+    De concatenatie $\text{NFA}_1\text{NFA}_2$ is de $\text{NFA} = (Q,\Sigma, \delta, q_s, F)$ waarbij \\
+
+    \vspace{-0.2cm}
+    \begin{minipage}{.6\textwidth}
+        \begin{itemize}
+            \item $Q = Q_1 \cup Q_2$, $q_s = q_{s_1}$, $F = \{q_{f_2}\}$
+            \item 
+                $\delta$ is gedefnieerd als:
+                \begin{itemize}
+                    \item $\forall x \in \Sigma: \ \delta{q_{f_1}, x} = \emptyset$
+                    \item $\forall q \in Q_{i}\backslash \{q_{f_1}\}, \ x \in \Sigma_{\epsilon}: \ \delta(q,x) = \delta_i(q,x)$
+                    \item $\delta(q_{f_1}, \epsilon) = \{q_{s_2}\}$
+                \end{itemize}
+        \end{itemize}
+        % \begin{itemize}
+        %     \item $Q = Q_1 \cup Q_2 \cup \{ q_s, q_f \}$
+        %     \item $F = \{q_f\}$
+        %     \item $\delta$ is gedefnieerd als:
+        %     \begin{itemize}
+        %         \item $\forall q \in Q_{i} \backslash \{q_{f_{i}}\}, \ x \in \Sigma_{\epsilon}, \ i = 1,2: \ \delta(q,x) = \delta_i(q,x)$
+        %         \item $\delta(q_s, \epsilon) = \{q_{s_{1}}, q_{s_{2}}\}$
+        %         \item $\forall x \in \Sigma: \delta(q_s, x) = \emptyset$
+        %         \item $i = 1,2: \delta(q_{f_{i}}, \epsilon) = \{q_f\}$
+        %         \item $\forall x \in \Sigma, i = 1,2: \delta(q_{f_{i}}, x) = \emptyset$
+        %     \end{itemize}
+        % \end{itemize}
+    \end{minipage}
+    \hspace{-0.5cm}
+    \begin{minipage}{.36\textwidth}
+        \includegraphics[scale = 0.28]{Images/ConcatNFA}
+    \end{minipage}
+    % \begin{center}
+    %     \includegraphics[scale = 0.35]{Images/ConcatNFA}
+    % \end{center}
 \end{pro}
 
 \begin{pro}[De ster van een NFA]{De ster van een NFA}
-    \begin{center}
-        \includegraphics[scale = 0.4]{Images/SterNFA}
-    \end{center}
+    \underline{Gegeven}: $\text{NFA}_1 = (Q_1,\Sigma, \delta_1, q_{s_1}, \{q_{f_1}\})$ \\
+
+    De Kleene ster $\text{NFA}_1^*$ is de NFA $= (Q,\Sigma, \delta, q_s, F)$ waarbij \\
+
+    \vspace{-0.1cm}
+    \begin{minipage}{.56\textwidth}
+        \begin{itemize}
+            \item $Q = Q_1 \cup \{q_s, q_f\}$, $F = \{q_f\}$
+            \item 
+                $\delta$ is gedefnieerd als:
+                \begin{itemize}
+                    \item $\forall x \in \Sigma: \delta(q_{s}, x) = \emptyset \ \land \ \delta(q_{f_1}, x) = \emptyset$
+                    % \item $\forall x \in \Sigma: \delta(q_{s}, x) = \emptyset$
+                    \item $\forall q \in Q_{1}\backslash \{q_{f_1}\}, \ x \in \Sigma_{\epsilon}: \ \delta(q,x) = \delta_1(q,x)$
+                    \item $\delta(q_s, \epsilon) = \{q_{s_1}, q_{f_1}\}$
+                    \item $\delta(q_{f_1}, \epsilon) = \{q_{s}, q_{f}\}$
+                \end{itemize}
+        \end{itemize}
+        % \begin{itemize}
+        %     \item $Q = Q_1 \cup Q_2 \cup \{ q_s, q_f \}$
+        %     \item $F = \{q_f\}$
+        %     \item $\delta$ is gedefnieerd als:
+        %     \begin{itemize}
+        %         \item $\forall q \in Q_{i} \backslash \{q_{f_{i}}\}, \ x \in \Sigma_{\epsilon}, \ i = 1,2: \ \delta(q,x) = \delta_i(q,x)$
+        %         \item $\delta(q_s, \epsilon) = \{q_{s_{1}}, q_{s_{2}}\}$
+        %         \item $\forall x \in \Sigma: \delta(q_s, x) = \emptyset$
+        %         \item $i = 1,2: \delta(q_{f_{i}}, \epsilon) = \{q_f\}$
+        %         \item $\forall x \in \Sigma, i = 1,2: \delta(q_{f_{i}}, x) = \emptyset$
+        %     \end{itemize}
+        % \end{itemize}
+    \end{minipage}
+    % \hspace{-0.1cm}
+    \begin{minipage}{.4\textwidth}
+        \includegraphics[scale = 0.325]{Images/SterNFA}
+    \end{minipage}
+    % \begin{center}
+    %     \includegraphics[scale = 0.4]{Images/SterNFA}
+    % \end{center}
 \end{pro}
 
 \subsection{Van RE naar NFA}
@@ -171,7 +261,11 @@
 \begin{theo}[Van RE naar NFA]{Van RE naar NFA}
     We hebben alle ingrediënten om van een reguliere expressie RE een NFA te maken, en zodanig dat de $L_{RE} = L_{NFA}$.
     Vermits reguliere expressies inductief gedefinieerd zijn zullen we voor elk lijntje van die definitie een overeenkomstige NFA definiëren.
-    De drie basisgevallen, namelijk $\epsilon$, $\phi$ en $a \in \Sigma$, zijn triviaal te modeleren als NFA.
+    De drie basisgevallen $\epsilon$, $\phi$ en $a \in \Sigma$ zijn triviaal te modeleren als NFA.
+    We illusteren hieronder:
+    \begin{center}
+        \includegraphics[scale = 0.275]{Images/NFABasisGevallen.png}
+    \end{center}
     De drie recursieve gevallen beschrijven we als volgt: laat $E_{1}$ en $E_{2}$ twee reguliere expressies zijn, dan is
     \begin{itemize}
         \item $NFA_{E_{1}E_{2}} = \text{concat}(NFA_{E_{1}},NFA_{E_{2}})$
@@ -204,10 +298,13 @@
             \item  de bogen hebben als label een reguliere expressie
         \end{itemize} 
     \end{minipage}
+    \hspace{0.1cm}
     \begin{minipage}{.4\textwidth}
         \includegraphics[scale = 0.35]{Images/GNFA.png}
     \end{minipage}
 \end{theo}
+
+\newpage
 
 \begin{alg}[NFA $\to$ RE]{NFA naar RE}
     \begin{enumerate}
@@ -718,12 +815,17 @@
         \item $q_0 = q_s$: we vertrekken in de begintoestand
         \item $q_m \in F$: we komen aan in een eindtoestand met een lege string
         \item $x,y \in \Gamma_\epsilon: \ (q_{i+1},y) \in \delta(q_i,w_{i+1},x)$ en $x,y \in \Gamma_\epsilon, \ t \in \Gamma^*: \ \text{stack}_i = xt, \ \text{stack}_{i+1} = yt$
-        % \item $x,y \in \Gamma_\epsilon, \ t \in \Gamma^*: \ \text{stack}_i = xt, \ \text{stack}_{i+1} = yt$.
+        % \item $x,y \in \Gamma_\epsilon, \ t \in \Gamma^*: \ \text{stack}_i =
+        % xt, \ \text{stack}_{i+1} = yt$.
     \end{itemize}  
+    \vspace{-0.3cm}
 \end{theo}
 
 \begin{theo}[Taal bepaald door een PDA]{Taal bepaald door een PDA}
-    De taal $L$ bepaald door een PDA bestaat uit alle strings die door de PDA aanvaard worden.
+    \vspace{-0.1cm}
+    De taal $L$ bepaald door een PDA bestaat uit alle strings die door de PDA
+    aanvaard worden.
+    \vspace{-0.1cm}
 \end{theo}
 
 \subsection{Equivalentie van CFG en PDA}
@@ -731,5 +833,31 @@
 \vspace{0.5cm}
 
 \begin{lem}[Equivalentie van CFG en PDA]{Equivalentie van CFG en PDA}
+    \vspace{-0.1cm}
     Elke push-down automaat bepaalt een contextvrije taal en elke contextvrije taal wordt bepaald door een push-down automaat.
+    \vspace{-0.1cm}
 \end{lem}
+
+\subsection{Pompend lemma voor contextvrije talen}
+
+\vspace{0.5cm}
+
+\begin{lem}[Pompend lemma voor contextvrije talen]{Pompend lemma voor contextvrije talen}
+    \vspace{-0.1cm}
+    Voor een contextvrije taal $L$ bestaan een getal $p$ (de pomplengte) zodanig dat elke string $s$ van $L$ met lengte
+    strikt groter dan $p$ kan opgedeeld worden in $5$ stukken $u,v,x,y,z \in \Sigma^*$ zodanig dat $s = uvxyz$
+    \begin{itemize}
+        \item $\forall i \in \mathbb{N}_0^+: \ uv^ixy^iz \in L$
+        \item $|vy| > 0$
+        \item $|vxy| \leq p$
+    \end{itemize}
+    \vspace{-0.3cm}
+\end{lem}
+
+\begin{prf}[Pompend lemma voor contextvrije talen]{prf - Pompend lemma voor contextvrije talen}
+    \vspace{-0.1cm}
+    Als $L$ eindig is dan is de stelling triviaal voldaan. Immers, dan heeft $L$ een langste string $s$; 
+    neem $p = |s|$. Dan zijn er geen strings met lengte strikt groter dan $p$, en
+    dan is de stelling triviaal voldaan. \\ \vspace{-0.2cm} 
+\end{prf}
+
