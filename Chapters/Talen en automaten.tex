@@ -477,45 +477,54 @@
     \vspace{-0.3cm}
 \end{prf}
 
-% \begin{theo}[Minimale DFA]{Minimale DFA}
-%     Een DFA is minimaal als er geen enkele andere DFA bestaat die dezelfde taal bepaalt en minder toestanden heeft, m$.$a$.$w$.$ 
-%     DFA$_{\text{min}}$ is een DFA, equivalent met DFA, en alle toestanden zijn $f$-verschillend.
-%     \vspace{-0.3cm}
-% \end{theo}
+\begin{theo}[Minimale DFA]{Minimale DFA}
+    De minimale DFA is de DFA met het minimale aantal toestanden die dezelfde taal bepaalt als de oorspronkelijke DFA\@. Als we vertrekken van een DFA $(Q,\Sigma, \delta, q_s, F)$, dan bestaat de minimale DFA uit $(\tilde{Q},\Sigma, \tilde{\delta}, \tilde{q_s}, \tilde{F})$ waarbij
+    \begin{itemize}
+        \item $\tilde{Q} = \{Q_1, \ldots, Q_n\}$ waarbij de $Q_i$ de equivalentie-klasse is van de relatie $f$-gelijk
+        \item $\tilde{\delta}(Q_i,a) = Q_j$ indien een $q \in Q_i$ bestaat zodat $\delta(q,a) \in Q_j$
+        \item $\tilde{q_s}$ is de equivalentie-klasse $Q_i$ zodat $q_s \in Q_i$
+        \item $\tilde{F}$ is de verzameling van $Q_i$ waarvoor geldt dat $Q_i \subseteq F$. 
+    \end{itemize}
+    \vspace{-0.3cm}
+\end{theo}
 
 \begin{lem}[DFA$_{\text{min}}$]{minDFA}
-    \begin{itemize}
-        \item DFA$_{\text{min}}$ is een DFA, equivalent met DFA, en alle toestanden zijn $f$-verschillend.
-        \item Als een DFA $N$ = $(Q_1,\Sigma, \delta_1, q_s, F_1)$  een DFA is zonder onbereikbare toestanden en waarin elke twee toestanden $f$-verschillend zijn, dan bestaat er geen machine met strikt minder toestanden die dezelfde taal bepaalt. De DFA $N$ is dan een minimale DFA of DFA$_{\text{min}}$ voor deze taal.
-    \end{itemize}
+    Een DFA$_{\text{min}}$ is een DFA, equivalent met DFA, en alle toestanden zijn $f$-verschillend.
+\end{lem}
+
+\begin{prf}[DFA$_{\text{min}}$]{prf - minDFA}
+    DFA$_{\text{min}}$ is een DFA omdat $f$-gelijkheid van toestanden $p$ en $q$ de $f$-gelijkheid van \(\delta(p,a)\) en \(\delta(q,a)\) impliceert. Het gevolg is dat verschillende bogen met hetzelfde symbool
+    vanuit $f$-gelijke $p$ en $q$ versmelten. Om aan te tonen dat DFA en DFA$_{\text{min}}$ equivalent zijn, is de essentiële eigenschap dat elke equivalentie-klasse $Q_i$ en elk element \(p \in Q_i\)
+    dezelfde $f$-strings heeft. Dus heeft $\tilde{q}_s$ dezelfde $f$-strings als $q_s$, en deze verzameling is dus de taal die beide DFA's bepalen. Aantonen dat een string $w$ een $f$-string is van $Q_i$
+    als en slechts als $w$ een $f$-string is van \(q \in Q_i\) gebeurt door inductie op de lengte van $w$, gebruikmakend van het feit dat voor elke \(Q_i,Q_j\)
+    \begin{equation*}
+        p \in Q_i, \ q \in Q_j, \ \forall a \in \Sigma: \ Q_i \overset{a}{\to} Q_j \ \Leftrightarrow \ p \overset{a}{\to} q 
+    \end{equation*}
+    Tenslotte, twee verschillende toestanden $Q_i, Q_j$ bevatten $f$-verschillende toestanden. Aangezien de $f$-strings van $Q_i$ en $Q_j$ die van hun elementen zijn, zijn ze $f$-verschillend.
+\end{prf}
+
+\newpage
+
+\begin{alg}[DFA $\to$ DFA$_\text{min}$]{DFA naar minDFA}
+    We gaan ervoor zorgen dat de alle toestanden van de DFA $f$-verschillend zijn, ofwel alle $f$-gelijke toestanden samenvoegen tot één toestand. We beginnen uit $Q^2$: dit komt neer op de veronderstelling dat alle paren $f$-gelijk zijn. In eerste instantie schrappen we koppels $(p,q)$ waarvan ofwel $p$ ofwel $q$ behoort tot $F$ maar niet allebei want deze koppels worden uitgesloten door de `enkel als' regel. Zij zijn zeker niet $f$-gelijk aangezien 1 ervan $\epsilon$ afleidt en de andere niet. In tweede instantie schrappen we koppels $(p,q)$ waarvoor een symbool $a$ bestaat zodat $((\delta(p,a)),(\delta(q,a)))$ niet behoort tot de huidige set want ook die zijn in tegenspraak met de regel. We gaan hiermee door totdat we geen koppels meer kunnen schrappen en dus de verzameling van toestanden $f$-verschillend is. 
+\end{alg}
+
+\begin{lem}[DFA$_{\text{min}}$]{minDFA2}
+    Als een DFA $N$ = $(Q_1,\Sigma, \delta_1, q_s, F_1)$  een DFA is zonder onbereikbare toestanden en waarin elke twee toestanden $f$-verschillend zijn, dan bestaat er geen machine met strikt minder toestanden die dezelfde taal bepaalt. De DFA $N$ is dan een minimale DFA of DFA$_{\text{min}}$ voor deze taal.
+
     % \vspace{-0.3cm}
 \end{lem}
 
 \begin{prf}[DFA$_{\text{min}}$]{prf - minDFA}
-    \begin{itemize}
-        \item 
-        DFA$_{\text{min}}$ is een DFA omdat $f$-gelijkheid van toestanden $p$ en $q$ de $f$-gelijkheid van \(\delta(p,a)\) en \(\delta(q,a)\) impliceert. Het gevolg is dat verschillende bogen met hetzelfde symbool
-        vanuit $f$-gelijke $p$ en $q$ versmelten. Om aan te tonen dat DFA en DFA$_{\text{min}}$ equivalent zijn, is de essentiële eigenschap dat elke equivalentie-klasse $Q_i$ en elk element \(p \in Q_i\)
-        dezelfde $f$-strings heeft. Dus heeft $\tilde{q}_s$ dezelfde $f$-strings als $q_s$, en deze verzameling is dus de taal die beide DFA's bepalen. Aantonen dat een string $w$ een $f$-string is van $Q_i$
-        als en slechts als $w$ een $f$-string is van \(q \in Q_i\) gebeurt door inductie op de lengte van $w$, gebruikmakend van het feit dat voor elke \(Q_i,Q_j\)
-        \begin{equation*}
-            p \in Q_i, \ q \in Q_j, \ \forall a \in \Sigma: \ Q_i \overset{a}{\to} Q_j \ \Leftrightarrow \ p \overset{a}{\to} q 
-        \end{equation*}
-        Tenslotte, twee verschillende toestanden $Q_i, Q_j$ bevatten $f$-verschillende toestanden. Aangezien de $f$-strings van $Q_i$ en $Q_j$ die van hun elementen zijn, zijn ze $f$-verschillend.
-        \item    
-        Veronderstel dat \(Q_1 = \{q_s,q_1, \ldots, q_n\}\) waarbij \(q_s\) de starttoestand is. 
-        Stel dat \(N_2 = (Q_2,\Sigma, \delta_2, q_s, F_2)\) een DFA is met minder toestanden dan $N$.
-        Vermits in $N$ elke toestand bereikbaar is, bestaan er strings \(\forall i \in \mathbb{N}_0^+: s_i\) zodanig dat \(\delta_1^*(q_s,s_i) = q_i\). 
-        Vermits \(N_2\) minder toestanden heeft moet voor een \(i \neq j: \delta_2^*(p_s,s_i) = \delta_2^*(p_s,s_j)\). Vermits \(q_i\) en \(q_j\)
-        $f$-verschillend zijn, is er een string \(s\) zodat \(\delta_1^*(q_i,s) \in F_1\) en \(\delta_1^*(q_j,s) \notin F_1\) of omgekeerd.
-        Dus ook \(\delta_1^*(q_s,s_is) \in F_1\) en \(\delta_1^*(q_s,s_js) \notin F_1\) of omgekeerd. Dit betekent dat DFA$_1$ van de strings $s_is$ en $s_js$ er juist één accepteert.
-        Maar N$_2$ zal beide strings $s_is$ en $s_js$ accepteren of geen van beiden, aangezien het parsen van $s_i$ en $s_j$ naar dezelfde node leidt, waarna hetzelfde pad gevolgd wordt om $v$ te parsen.
-        Dus kunnen de DFA's N en N$_2$ niet dezelfde taal bepalen.
-    \end{itemize}
+    Veronderstel dat \(Q_1 = \{q_s,q_1, \ldots, q_n\}\) waarbij \(q_s\) de starttoestand is, stel dat \(N_2 = (Q_2,\Sigma, \delta_2, q_s, F_2)\) een DFA is met minder toestanden dan $N$.
+    Vermits in $N$ elke toestand bereikbaar is, bestaan er strings \(\forall i \in \mathbb{N}_0^+: s_i\) zodanig dat \(\delta_1^*(q_s,s_i) = q_i\). 
+    Vermits \(N_2\) minder toestanden heeft moet voor een \(i \neq j: \delta_2^*(p_s,s_i) = \delta_2^*(p_s,s_j)\). Vermits \(q_i\) en \(q_j\)
+    $f$-verschillend zijn, is er een string \(s\) zodat \(\delta_1^*(q_i,s) \in F_1\) en \(\delta_1^*(q_j,s) \notin F_1\) of omgekeerd.
+    Dus ook \(\delta_1^*(q_s,s_is) \in F_1\) en \(\delta_1^*(q_s,s_js) \notin F_1\) of omgekeerd. Dit betekent dat DFA$_1$ van de strings $s_is$ en $s_js$ er juist één accepteert.
+    Maar N$_2$ zal beide strings $s_is$ en $s_js$ accepteren of geen van beiden, aangezien het parsen van $s_i$ en $s_j$ naar dezelfde node leidt, waarna hetzelfde pad gevolgd wordt om $v$ te parsen.
+    Dus kunnen de DFA's N en N$_2$ niet dezelfde taal bepalen.
     \vspace{-0.3cm}
 \end{prf}
-
-\newpage
 
 \begin{theo}[DFA isomorfisme]{DFA isomorfisme}
     Een DFA $N_1 = (Q_1, \Sigma, \delta_1, q_{s_1}, F_1)$ is \textbf{isomorf} met een DFA $N_2 = (Q_2, \Sigma, \delta_2, q_{s_2}, F_2)$ als er een bijectie $b: Q_1 \to Q_2$ bestaat zodanig dat
@@ -524,8 +533,12 @@
         \item $b(q_{s_1}) = q_{s_2}$
         \item $b(\delta_1(q,a)) = \delta_2(b(q),a)$
     \end{itemize}
-    Twee isomorfe DFA's bepalen dus dezelfde taal.
+    Twee isomorfe DFA's bepalen dus dezelfde taal. \\
+
+    \textbf{Opmerking:} een minimale DFA is dus altijd uniek op isomorfisme na, sinds elke twee minimale DFA's van een DFA (op een isomorfisme na) dezelfde componenten hebben.
 \end{theo}
+
+\newpage
 
 \subsection{Myhill-Nerode relaties op $\Sigma^*$}
 
@@ -556,22 +569,24 @@
 \end{pro}
 
 \begin{theo}[Myhill-Nerode relatie]{Myhill-Nerode relatie}
-    Een equivalentierelatie $\sim$ tussen strings is een \textbf{Myhill-Nerode relatie} voor een taal $L$ als de equivalentieklasse
-    voldoet aan bovenstaande eigenschappen. We schrijven: $\sim$ is MN(L)
+    Een equivalentierelatie $\sim$ tussen strings is een \textbf{Myhill-Nerode relatie} MN(L) voor een taal $L$ als de equivalentieklasse
+    voldoet aan \textbf{bovenstaande} eigenschappen.
 \end{theo}
 
 \begin{lem}[DFA$_{\sim}^{\text{L}}$]{DFAsimL}
+    \vspace{-0.1cm}
     Gegeven een taal $L$ over $\Sigma$ en een MN(L)-relatie $\sim$ op $\Sigma^*$, dan is DFA$_{\sim}^{\text{L}} = (Q, \Sigma, \delta, q_s, F)$ een DFA die L bepaalt, waarbij
     \begin{itemize}
-        \item $Q = \{x_{\sim} \ | \ x \in \Sigma^* \}$
+        \item $Q = \{x_{\sim} \ | \ x \in \Sigma^* \}$: elke equivalentieklasse is een toestand
         \item $\delta(x_{\sim},a) = (xa)_{\sim}$
-        \item $q_s = \epsilon_{\sim}$
-        \item $F = \{x_{\sim} \ | \ x \in L \}$
+        \item $q_s = \epsilon_{\sim}$: de starttoestand bereik je met $\epsilon$
+        \item $F = \{x_{\sim} \ | \ x \in L \}$: de eindtoestanden worden bereikt door een string in L
     \end{itemize}  
-    \vspace{-0.3cm}
+    \vspace{-0.2cm}
 \end{lem}
 
 \begin{prf}[DFA$_{\sim}^{\text{L}}$]{prf - DFAsimL}
+    \vspace{-0.1cm}
     Dat $\delta$ goed gedefinieerd is, kan je bewijzen door gebruik te maken van de rechtse congruentie van $\sim$.
     Verder zijn alle ingrediënten van de DFA duidelijk, in het bijzonder ook dat $Q$ slechts een eindig aantal toestanden bevat.
     We moeten nog bewijzen dat $L_{\text{DFA}_{\sim}^{\text{L}}} = L$:
@@ -590,22 +605,25 @@
 % \end{prf}
 
 \begin{lem}[Infimumrelatie van Myhill-Nerode relaties]{Infimumrelatie van Myhill-Nerode relaties}
-    Als $E$ een niet lege verzameling van MN(L) relaties is, dan is ook het infimum $\sim_{\text{inf}}$ van $E$ een MN(L)-relatie.
+    \vspace{-0.1cm}
+    Als $E$ een niet lege verzameling van MN(L) relaties is, dan is ook het infimum $\sim_{\text{inf}}$ van $E$ een MN(L) relatie.
     $\sim_{\text{inf}}$ is de transitieve sluiting van de unie van $E$. Dit betekent dat
     \begin{equation*}
-        x \sim_{\text{inf}} y \ \Leftrightarrow \ i \in [0, n-1], \ \sim_i \in E: \ x = x_0 \sim_0 x_1 \sim_1 \ldots \sim_{n-1} x_n = y
+        x \sim_{\text{inf}} y \ \Leftrightarrow \ i \in [0, n-1], \ \sim_i \ \in E: \ x = x_0 \sim_0 x_1 \sim_1 \ldots \sim_{n-1} x_n = y
     \end{equation*}
-    \vspace{-0.5cm}
+    \vspace{-0.7cm}
 \end{lem}
 
-\newpage
+% \newpage
 
 \begin{prf}[Infimumrelatie van Myhill-Nerode relaties]{prf - Infimumrelatie van Myhill-Nerode relaties}
-    We zagen al dat het infimum van een niet lege verzameling $E$ van equivalentierelaties zelf ook een equivalentierelatie is.
+    % We zagen al dat het infimum van een niet lege verzameling $E$ van equivalentierelaties zelf ook een equivalentierelatie is.
+
+    % \vspace{-0.1cm}
 
     \begin{itemize}
         \item 
-            \textbf{Eindigheid:} $\sim_{\text{inf}}$ is een superset van elke willekeurige $\sim \in E$ en heeft dus minder equivalentieklassen
+            \textbf{Eindigheid:} $\sim_{\text{inf}}$ is een superset van elke willekeurige $\sim \ \in E$ en heeft dus minder equivalentieklassen
             dan $\sim$. Elke $\sim$ heeft slechts een eindig aantal equivalentieklasse, zodoende ook $\sim_{\text{inf}}$.
         \item 
             \textbf{Rechts congruentie:} Stel $x \sim_{\text{inf}} y$ dan bestaat de sequentie 
@@ -628,10 +646,26 @@
             \end{equation*}
             We bekomen $x \in L \Leftrightarrow y \in L$ en dus dat $\sim_{\text{inf}}$ een verfijning is van $\sim_L$.
     \end{itemize}
+
+    \vspace{-0.3cm}
+\end{prf}
+
+\newpage
+
+\begin{lem}[MN(L) toebehorend aan een mininale DFA]{ MN(L) toebehorend aan een mininale DFA}
+    \vspace{-0.1cm}
+    De DFA van $\sim_{\text{inf}}$, DFA$_{\sim_{\text{inf}}}$, is een minimale DFA$_{\text{min}}$ van $L$. Elke minimale DFA is van $L$ is isomorf met mekander, en dus ook met DFA$_{\sim_{\text{inf}}}$.
+    \vspace{-0.1cm}
+\end{lem}
+
+\begin{prf}[MN(L) toebehorend aan een mininale DFA]{prf - MN(L) toebehorend aan een mininale DFA}
+    \vspace{-0.1cm}
+    Voor elke MN(L) relatie $\sim$ geldt ofwel dat $\sim \ = \ \sim_{\text{inf}}$, ofwel bestaan $x,y$ zodat $x \nsim y$ maar $x \sim_{\text{inf}} y$, en dan heeft $\sim$ strikt meer equivalentieklassen dan $\sim_{\text{inf}}$. Uit de overeenkomst tussen DFA's en MN(l) relaties volgt dat elke DFA die $L$ bepaalt, ofwel isomorf is aan DFA$_{\text{sup}}$, de DFA van $\sim_{\text{inf}}$, ofwel heeft hij strikt meer toestanden dan DFA$_{\text{sup}}$. Dus, DFA$_{\sim_{\text{inf}}}$ is een minimale DFA van $L$ waarmee elke minimale DFA van $L$ isomorf is.
 \end{prf}
 
 \begin{pro}[MN(L) toebehorend aan een mininale DFA]{pro - MN(L) toebehorend aan een mininale DFA}
-    Het kan nu ook bewezen worden dat de MN(L) relatie die hoort bij de minimale DFA voldoet aan de volgende conditie:
+    \vspace{-0.1cm}
+    Het kan nu ook bewezen worden dat de MN(L) relatie die hoort bij de minimale DFA voldoet aan:
     \begin{equation*}
         x \sim_{\text{inf}} y \ \Leftrightarrow \  \forall s \in \Sigma^*: \ ( xs \in L \Leftrightarrow ys \in L )
     \end{equation*}
@@ -639,15 +673,18 @@
 \end{pro}
 
 \begin{lem}[Stelling van Myhill-Nerode]{Stelling van Myhill-Nerode}
+    \vspace{-0.1cm}
     Laat $L \subseteq \Sigma^*$ een taal zijn over $\Sigma$. De volgende drie uitspraken zijn dan equivalent:
     \begin{itemize}
         \item[$\Leftrightarrow$] $L$ is regulier
         \item[$\Leftrightarrow$] er bestaat een Myhill-Nerode relatie voor $L$
         \item[$\Leftrightarrow$] 
             definieer $\sim$ op $\Sigma^*$ als volgt:
+            \vspace{-0.15cm}
             \begin{equation*}
                 x \sim y \ \Leftrightarrow \ \forall s \in \Sigma^*: \ ( xs \in L \Leftrightarrow ys \in L );
             \end{equation*}
+            \vspace{-0.15cm}
             de relatie $\sim$ heeft een eindige index
     \end{itemize}
     \vspace{-0.3cm}
@@ -658,6 +695,7 @@
 \vspace{0.5cm}
 
 \begin{lem}[Pompend lemma voor reguliere talen]{Pompend lemma voor reguliere talen}
+    \vspace{-0.1cm}
     Voor een reguliere taal $L$ bestaan een pomplengte $d$, zodanig dat als $s \in L$ en $|s| \geq d$, 
     dan bestaat er een verdeling van $s$ in stukken $x$, $y$ en $z$ zodanig dat $s = xyz$ en \\
     \begin{minipage}{0.56\textwidth}
@@ -673,6 +711,8 @@
     \vspace{-0.3cm}
 \end{lem}
 
+\newpage
+
 \begin{prf}[Pompend lemma voor reguliere talen]{prf - Pompend lemma voor reguliere talen}
     Neem een DFA die $L$ bepaalt, neem $d = \#Q$ en neem een willekeurige $s = a_1 \ldots a_n \in L$ met $n \geq d$.
     Beschouw de accepterende sequentie
@@ -685,70 +725,68 @@
     Alles volgt nu direct, zie desnoods te illustratie in de stelling.
 \end{prf}
 
-\subsection{Varianten van eindige toestandsautomaten}
+% \subsection{Varianten van eindige toestandsautomaten}
 
-\vspace{0.5cm}
+% \vspace{0.5cm}
 
-\begin{theo}[Transducer]{Transducer}
-    \begin{minipage}{.66\textwidth}
-        Een transducer zet een string om in een andere: we passen de definitie van een DFA een beetje aan, zodat ook output kan geproduceerd worden
-        De labels zijn nu van de vorm $a/x$ waarbij $a$ in het inputalfabet zit en $x$ in een outputalfabet (inbegrepen de lege string). 
-        Wat voor de $/$ staat wordt gebruikt om de weg te vinden in de transducer alsof het een DFA was. Wat na de $/$ staat wordt op de output gezet als die boog genomen wordt. 
-        De transducer hiernaast accepteert elke string en geeft als output een 1 voor elke b die vlak na een a komt.
-    \end{minipage}
-    \begin{minipage}{.3\textwidth}
-        \vspace{-0.3cm}\hspace{0.3cm}\includegraphics[scale = 0.3]{Images/Transducer.png}
-    \end{minipage}
-\end{theo}
+% \begin{theo}[Transducer]{Transducer}
+%     \begin{minipage}{.66\textwidth}
+%         Een transducer zet een string om in een andere: we passen de definitie van een DFA een beetje aan, zodat ook output kan geproduceerd worden
+%         De labels zijn nu van de vorm $a/x$ waarbij $a$ in het inputalfabet zit en $x$ in een outputalfabet (inbegrepen de lege string). 
+%         Wat voor de $/$ staat wordt gebruikt om de weg te vinden in de transducer alsof het een DFA was. Wat na de $/$ staat wordt op de output gezet als die boog genomen wordt. 
+%         De transducer hiernaast accepteert elke string en geeft als output een 1 voor elke b die vlak na een a komt.
+%     \end{minipage}
+%     \begin{minipage}{.3\textwidth}
+%         \vspace{-0.3cm}\hspace{0.3cm}\includegraphics[scale = 0.3]{Images/Transducer.png}
+%     \end{minipage}
+% \end{theo}
 
-\newpage
+% \begin{theo}[Optelchecker]{Optelchecker}
+%     \begin{minipage}{.75\textwidth}
+%         Een DFA kan alleen gebruikt worden om te beslissen of een string behoort tot een taal.
+%         Zo zou je kunnen een taal definiëren van strings die correcte optellingen voorstellen en als die taal regulier is er een DFA voor bouwen.
+%         Hier is een poging: $\Sigma = \{0,1\}$. De twee getallen  die we willen optellen en het resultaat komen in binair, omgekeerd en we maken ze even lang door bij de kortste(n) wat leidende nullen toe te voegen.
+%         Dus als we $3$ willen optellen bij $13$, met resultaat $16$, dan hebben we de drie bitstrings $11000$, $10110$ en $00001$. Die mengen we nu systematisch,
+%         t$.$t$.$z$.$ we maken groepjes van $3$ bits die op de i-de plaats voorkomen en schrijven die groepjes achter elkaar. Dus we hebben 
+%         \begin{equation*}
+%             110  \ 100 \ 010 \ 010 \ 001
+%         \end{equation*}
+%         waarbij de blanco’s enkel dienen om de groepering per drie te laten zien. Dus de string 
+%         \begin{equation*}
+%             110100010010001
+%         \end{equation*}
+%         stelt de correcte optelling 3+13=16 voor.
+%         Een DFA voor de taal van correcte optellingen staat in de figuur hiernaast.
+%     \end{minipage}
+%     \begin{minipage}{.21\textwidth}
+%         \vspace{-0.3cm}\includegraphics[scale = 0.35]{Images/Optelchecker.png}
+%     \end{minipage}
+% \end{theo}
 
-\begin{theo}[Optelchecker]{Optelchecker}
-    \begin{minipage}{.75\textwidth}
-        Een DFA kan alleen gebruikt worden om te beslissen of een string behoort tot een taal.
-        Zo zou je kunnen een taal definiëren van strings die correcte optellingen voorstellen en als die taal regulier is er een DFA voor bouwen.
-        Hier is een poging: $\Sigma = \{0,1\}$. De twee getallen  die we willen optellen en het resultaat komen in binair, omgekeerd en we maken ze even lang door bij de kortste(n) wat leidende nullen toe te voegen.
-        Dus als we $3$ willen optellen bij $13$, met resultaat $16$, dan hebben we de drie bitstrings $11000$, $10110$ en $00001$. Die mengen we nu systematisch,
-        t$.$t$.$z$.$ we maken groepjes van $3$ bits die op de i-de plaats voorkomen en schrijven die groepjes achter elkaar. Dus we hebben 
-        \begin{equation*}
-            110  \ 100 \ 010 \ 010 \ 001
-        \end{equation*}
-        waarbij de blanco’s enkel dienen om de groepering per drie te laten zien. Dus de string 
-        \begin{equation*}
-            110100010010001
-        \end{equation*}
-        stelt de correcte optelling 3+13=16 voor.
-        Een DFA voor de taal van correcte optellingen staat in de figuur hiernaast.
-    \end{minipage}
-    \begin{minipage}{.21\textwidth}
-        \vspace{-0.3cm}\includegraphics[scale = 0.35]{Images/Optelchecker.png}
-    \end{minipage}
-\end{theo}
+% \newpage
 
-\begin{theo}[Optel-transducer]{Optel-transducer}
-    Optellen bestaat eigenlijk in: gegeven twee getallen als input, output de som. Dat kan met een transducer: gebruik dezelfde voorstelling van de twee getallen die je wil optellen als hiervoor, 
-    en meng die op dezelfde manier, dus 3+13 wordt voorgesteld als de string
-    \begin{equation*}
-        1110010100.
-    \end{equation*}
-    \begin{center}
-        \hspace{0.25cm}\includegraphics[scale = 0.45]{Images/OptelTranducers.png}
-    \end{center}
-\end{theo}
+% \begin{theo}[Optel-transducer]{Optel-transducer}
+%     Optellen bestaat eigenlijk in: gegeven twee getallen als input, output de som. Dat kan met een transducer: gebruik dezelfde voorstelling van de twee getallen die je wil optellen als hiervoor, 
+%     en meng die op dezelfde manier, dus 3+13 wordt voorgesteld als de string
+%     \begin{equation*}
+%         1110010100.
+%     \end{equation*}
+%     \begin{center}
+%         \hspace{0.25cm}\includegraphics[scale = 0.45]{Images/OptelTranducers.png}
+%     \end{center}
+% \end{theo}
 
-\newpage
+% \begin{theo}[Two-way finite automata]{Two-way finite automata}
+%     Een DFA staat ook wel gekend als een one-way finite automata, omdat de input van links naar rechts gelezen wordt en de automaat niet terug kan gaan.
+%     Een two-way finite automata 2DFA is een DFA die ook van rechts naar links kan lezen. De automaat kan dus terugkeren naar vorige toestanden.
+%     \vspace{-0.05cm}
+% \end{theo}
 
-\begin{theo}[Two-way finite automata]{Two-way finite automata}
-    Een DFA staat ook wel gekend als een one-way finite automata, omdat de input van links naar rechts gelezen wordt en de automaat niet terug kan gaan.
-    Een two-way finite automata 2DFA is een DFA die ook van rechts naar links kan lezen. De automaat kan dus terugkeren naar vorige toestanden.
-    \vspace{-0.05cm}
-\end{theo}
-
-\begin{theo}[Büchi automaten]{Büchi automaten}
-    Büchi automaten trekken op NFA's maar je geeft er geen eindige strings aan, wel oneindige lange: er is dus geen moment waarop je string eindigt bij het doorlopen.
-    De oneindige string $s$ wordt aanvaard indien de rij toestanden waarlangs je passeert oneindig dikwijls een aanvaardende toestand heeft.
-    \vspace{-0.05cm}
-\end{theo}
+% \begin{theo}[Büchi automaten]{Büchi automaten}
+%     Büchi automaten trekken op NFA's maar je geeft er geen eindige strings aan, wel oneindige lange: er is dus geen moment waarop je string eindigt bij het doorlopen.
+%     De oneindige string $s$ wordt aanvaard indien de rij toestanden waarlangs je passeert oneindig dikwijls een aanvaardende toestand heeft.
+%     \vspace{-0.05cm}
+% \end{theo}
 
 \subsection{Contextvrije talen en hun grammatica}
 
@@ -785,8 +823,6 @@
     \end{equation*}
     \vspace{-0.5cm}
 \end{theo}
-
-\newpage
 
 \begin{theo}[Contextvrije taal - CFL]{Contextvrije taal - CFL}
     Een taal $L$ is \textbf{contextvrij} indien er een CFG bestaat die $L$ bepaalt, en dus $L = L_{\text{CFG}}$.
