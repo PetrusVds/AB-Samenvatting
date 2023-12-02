@@ -514,10 +514,150 @@
     \begin{equation*}
         \text{EQ}_{\text{TM}} = \{\langle \text{M}_1, \text{M}_2 \rangle \ | \ \text{M}_1 \ \text{en} \ \text{M}_2 \ \text{zijn Turingmachines en} \ \text{L}_{\text{M}_1} = \text{L}_{\text{M}_2} \}
     \end{equation*}
-    is niet beslisbaar.
+    is niet beslisbaar, niet herkenbaar en ook niet co-herkenbaar.
 \end{lem}
 
 \begin{prf}[Equivalentietaal bij Turingmachines]{prf - Equivalentietaal bij Turingmachines}
-    We weten al dat $\text{E}_{\text{TM}}$ niet beslisbaar is, en we reduceren nu $\text{E}_{\text{TM}}$ naar $\text{EQ}_{\text{TM}}$ met de functie $f$ die bij input $\langle \text{M} \rangle$ als resultaat geeft: $\langle \text{M}, \text{M}_{\phi} \rangle$ waarin $ \text{M}_{\phi}$ een TM is die de lege taal bepaalt. Het is duidelijk dat $f$ Turing-berekenbaar is. Bijgevolg, $\text{E}_{\text{TM}} \leq_m \text{EQ}_{\text{TM}}$. $\text{EQ}_{\text{TM}}$ is niet beslisbaar, want $\text{E}_{\text{TM}}$ is niet beslisbaar.
+    \begin{itemize}
+        \item 
+            We weten al dat $\text{E}_{\text{TM}}$ niet beslisbaar is, en we reduceren nu $\text{E}_{\text{TM}}$ naar $\text{EQ}_{\text{TM}}$ met de functie $f$ die bij input $\langle \text{M} \rangle$ als resultaat geeft: $\langle \text{M}, \text{M}_{\phi} \rangle$ waarin $ \text{M}_{\phi}$ een TM is die de lege taal bepaalt. Het is duidelijk dat $f$ Turing-berekenbaar is. Bijgevolg, $\text{E}_{\text{TM}} \leq_m \text{EQ}_{\text{TM}}$. $\text{EQ}_{\text{TM}}$ is niet beslisbaar, want $\text{E}_{\text{TM}}$ is niet beslisbaar.
+        \item  
+            We zullen twee mapping reducties construeren, de eerste zal aantonen dat $\text{A}_{\text{TM}} \leq_m \overline{\text{EQ}_{\text{TM}}}$ en de andere toont aan dat $\text{A}_{\text{TM}} \leq_m \text{EQ}_{\text{TM}}$. Vermits $\overline{\text{A}_{\text{TM}}}$ niet herkenbaar is, bewijst dat de stelling.
+            \begin{enumerate}
+                \item $f$ transformeert $\langle \text{M}, s \rangle$ in $\langle \text{M}_s, \text{M}_\phi \rangle$; daarin is $\text{M}_s$ een machine die elke string accepteert indien M $s$ accepteert; het is duidelijk dat $f$ berekenbaar is; we moeten nog de andere voorwaarden aantonen:
+                \begin{itemize}
+                    \item indien M $s$ accepteert, dan zijn M$_s$ en M$_\phi$ verschillend
+                    \item indien M $s$ niet accepteert, dan zijn M$_s$ en M$_\phi$ gelijk
+                \end{itemize}
+                \item $f$ transformeert $\langle \text{M}, s \rangle$ in $\langle \text{M}_s, \text{M}_{\Sigma^*} \rangle$; $\text{M}_{\Sigma^*}$ is de machine die alles accepteert; M$_s$ is zoals hiervoor; de voorwaarden op $f$ zijn gemakkelijk na te gaan. 
+            \end{enumerate}
+    \end{itemize}
 \end{prf}
 
+\subsection{Orakelmachine}
+
+\vspace{0.5cm}
+
+\begin{lem}[Orakelmachine]{Orakelmachine}
+    Er bestaat een orakelmachien $\text{O}^{\text{A}_{\text{TM}}}$ die E$_{TM}$ beslist.
+\end{lem}
+
+\begin{prf}[Orakelmachine]{prf - Orakelmachine}
+    We construeren $\text{O}^{\text{A}_{\text{TM}}}$  als volgt: bij input $\langle \text{M} \rangle$ doet $\text{O}^{\text{A}_{\text{TM}}}$
+    \begin{itemize}
+        \item construeer een Turingmachine P die bij input $w$ doet
+        \begin{itemize}
+            \item laat M lopen op alle strigs van $\Sigma^*$ 
+            \item als M een string accepteert, accept
+        \end{itemize}
+        \item vraag aan het orakel voor A$_{\text{TM}}$ of $\langle \text{P}, \epsilon \rangle \in \text{A}_{\text{TM}}$
+        \item als het orakel ja antwoordt, reject; als het orakel nee antwoordt, accept.
+    \end{itemize}
+    Als L$_{\text{M}}  \neq  \emptyset$, dan accepteert P elke input inclusief $\epsilon$; dan antwoordt het orakel ja en dan reject $\text{O}^{\text{A}_{\text{TM}}}$. Als L$_{\text{M}} = \emptyset$, dan accepteert P geen enkele input en evenmin $\epsilon$; dan antwoordt het orakel nee en dan accepteert $\text{O}^{\text{A}_{\text{TM}}}$. We besluiten dat $\text{O}^{\text{A}_{\text{TM}}}$ de taal E$_{\text{TM}}$ beslist.
+\end{prf}
+
+\begin{theo}[Turingreduceerbaar]{Turingreduceerbaar}
+    Een taal A is Turingreduceerbaar naar een taal B, indien A beslisbaar is relatief t\@.o\@.v\@. B,  t\@.t\@.z\@. er bestaat een orakelmachine $\text{O}^{\text{B}}$ die A beslist. We schrijven 
+    \begin{equation*}
+        \text{A} \leq_T \text{B}.
+    \end{equation*}
+    \vspace{-0.5cm}
+\end{theo}
+
+\begin{lem}[Turingreduceerbaarheid]{Turingreduceerbaarheid}
+    \begin{itemize}
+        \item Indien $\text{A} \leq_T \text{B}$ en B is beslisbaar, dan is A beslisbaar.
+        \item Indien $\text{A} \leq_m \text{B}$, dan is $\text{A} \leq_m \text{B}$.
+        \item transistiviteit: indien $\text{A} \leq_T \text{B} \leq_T \text{C}$, dan $\text{A} \leq_T \text{C}$.
+    \end{itemize}
+\end{lem}
+
+\subsection{Turing-berekenbare functies en recursieve functies}
+
+\vspace{0.5cm}
+
+\begin{theo}[Turing-berekenbare partiële functies]{Turing-berekenbare partiële functies}
+    Een partiële funtie $f$ heet Turing-berekenbaar indien
+    \begin{equation*}
+        \exists \text{M} \in \text{TM},\ \forall s \in \Sigma^*: \ \text{M} \ \text{stopt op input} \ s \ \Leftrightarrow \ s \in \text{dom}(f).
+    \end{equation*}
+    of in woorden: er een Turingmachine M bestaat die bij input $s$ stopt als en slechts als $s$ behoort tot domein van $f$; bovendien, als M stopt, dan staat $f(s)$ op de band. We zeggen dat M de partiële functie $f$ berekent.
+\end{theo}
+
+\begin{theo}[Compositie functie constructor]{Compositie fucntie constructor Cn}
+    De compositie functie constructor $Cn$ is de functie 
+    \begin{equation*}
+        h: \mathbb{N}^k \to \mathbb{N}: \ h(\overline{x}) = f(g_1(\overline{x}), \ldots, g_k(\overline{x}))
+    \end{equation*}
+    waarbij $f: \mathbb{N}^m \to \mathbb{N}, \ g_1, \ldots, g_m: \mathbb{N}^k \to \mathbb{N}, \ \overline{x} = (x_1, \ldots, x_k)$
+\end{theo}
+
+\begin{theo}[Primitief-recursieve functie constructor]{Primitief-recursieve functie constructor Pr}
+    De primitief-recursieve functie constructor $Pr$ is de functie 
+    \begin{equation*}
+        h: \mathbb{N}^{k+1} \to \mathbb{N}: \begin{cases}
+            h(\overline{x}, 0) = f(\overline{x}) \\
+            h(\overline{x}, y+1) = g(\overline{x}, y, h(\overline{x}, y))
+        \end{cases}
+    \end{equation*}
+    waarbij $f: \mathbb{N}^k \to \mathbb{N}, \ g: \mathbb{N}^{k+2} \to \mathbb{N}$
+\end{theo}
+
+\begin{theo}[Primitief-recursieve functie]{Primitief-recursieve functie}
+    Een primitief-recursieve functie wordt inductief gedefinieerd als volgt:
+    \begin{itemize}
+        \item 
+            Elke basis functie is primitief-recursief.
+        \item 
+            Indien $g_1, \ldots, g_m: \mathbb{N}^k \to \mathbb{N}$ en $f: \mathbb{N}^m \to \mathbb{N}$ primitief-recursieve functies zijn, dan is 
+            \begin{equation*}
+                Cn[f, g_1, \ldots, g_m]
+            \end{equation*} 
+            ook primitief-recursief. 
+        \item 
+            Indien $g: \mathbb{N}^{k+2} \to \mathbb{N}$ en $f: \mathbb{N}^{k} \to \mathbb{N}$ primitief-recursieve functies zijn, dan is 
+            \begin{equation*}
+                Pr[f,g]
+            \end{equation*}
+            ook primitief-recursief. 
+    \end{itemize}
+\end{theo}
+
+\begin{theo}[Onbegrensde minimizatie]{Onbegrensde minimizatie}
+    De functie $Mn[f]$ is de functie
+    \begin{equation*}
+            g(\overline{x}) = y 
+    \end{equation*}
+    waarbij $g: \mathbb{N}^{k} \to \mathbb{N}$ op voorwaarde dat 
+    \begin{equation*}
+        f(\overline{x},y) = 0 \ \land \ \forall z < y: \ f(\overline{x}, z) \ \text{is gedefinieerd} \ \land f(\overline{x}, y) \neq 0. 
+    \end{equation*}
+    Als deze voorwaarden niet voldaan zijn, dan is $g(\overline{x})$ niet gedefinieerd en dus $Mn[f]$ ook niet.
+\end{theo}
+
+\begin{theo}[Recursieve functies]{Recursieve functies}
+    Een recursieve functie wordt inductief gedefinieerd als volgt:
+    \begin{itemize}
+        \item 
+            Elke basis functie is recursief.
+        \item
+            Indien $g_1, \ldots, g_m: \mathbb{N}^k \to \mathbb{N}$ en $f: \mathbb{N}^m \to \mathbb{N}$ recursieve functies zijn, dan is 
+            \begin{equation*}
+                CN[f, g_1, \ldots, g_m]
+            \end{equation*} 
+            waarbij $CN$ gelijk is aan $Cn$ veralgemeend naar partiële functies, ook recursief.
+        \item 
+            Indien $g: \mathbb{N}^{k+2} \to \mathbb{N}$ en $f: \mathbb{N}^{k} \to \mathbb{N}$ recursieve functies zijn, dan is 
+            \begin{equation*}
+                PR[f,g]
+            \end{equation*}
+            waarbij $PR$ gelijk is aan $Pr$ veralgemeend naar partiële functies, ook recursief.  
+        \item  
+            Indien $f: \mathbb{N}^{k+1} \to \mathbb{N}$ recursief is, dan is 
+            \begin{equation*}
+                Mn[f]
+            \end{equation*}
+            ook recursief. 
+    \end{itemize}
+    Recursieve functies worden ook $\mu$-recursief genoemd.
+\end{theo}
