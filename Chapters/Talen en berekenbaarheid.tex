@@ -180,13 +180,16 @@
 
 \subsection{De enumeratormachine}
 
-\vspace{0.5cm}
+\vspace{0.2cm}
 
 \begin{lem}[Enumeratormachine]{Enumeratormachine}
+    \vspace{-0.15cm}
     De taal door een enumerator bepaald is herkenbaar en elke herkenbare taal wordt door een enumerator geënumereerd.
+    \vspace{-0.1cm}
 \end{lem}
 
 \begin{prf}[Enumeratormachine]{prf - Enumeratormachine}
+    \vspace{-0.15cm}
     \begin{itemize}
         \item 
             We beschrijven informeel een herkenner TM voor de taal $L$ bepaald door een gegeven enumerator Enu: TM gebruikt Enu als subruitine als volgt. Geef een string $s$ aan de TM\@. De TM start de Enu. Telkens de Enu in zijn $q_e$ komt, kijkt TM na of de laatst geproduceerde string op de outputband van de Enu gelijk is aan $s$. Indien ja: TM accepteert. Indien niet, laat de Enu verderrekenen.
@@ -194,13 +197,14 @@
             Laat de TM $L$ bepalen. We construeren de Enu voor die $L$ als volgt. Maak eerst een TM$_{\text{gen}}$ die bij input een getal $n$, het getal $n$ gevolgd door de eerste $n$ strings uit $\Sigma^*$ op de band zet: $n, s_1, s_2, \dots, s_n$. Maak een TM die bij input $n, s_1, s_2, \dots, s_n$ $n$ stappen van TM uitvoert op elk van de $n$ strings: als daarbij een string $s_i$ geaccepteerd wordt, schrijf die dan op de outputband voor Enu. Maak nu een TM$_{\text{driver}}$ die de opeenvolgende getallen $n$ genereert en dan TM$_{\text{gen}}$ en TM oproept.
             Waarom is dit algoritme correct? Als TM een string $s$ aanvaardt, bv\@. in $m$ stappen, zal Enu $s$ op de output zetten tijdens iteratie $n$ bij voldoende grote $n$, namelijk, zodat $s$ valt binnen $s_1,\ldots,s_n$ en zodat $n \geq m$. Merk op dat Enu $s$ oneindig vaak op de output band zal zetten.
     \end{itemize}
+    \vspace{-0.3cm}
 \end{prf}
 
-\newpage
+% \newpage
 
 \subsection{Beslisbare talen}
 
-\vspace{0.3cm}
+\vspace{0.2cm}
 
 \begin{lem}[Encoderingen van reguliere talen zijn beslisbaar]{Encoderingen van reguliere talen zijn beslisbaar}
     \vspace{-0.1cm}
@@ -230,6 +234,8 @@
     \vspace{-0.3cm}
 \end{prf}
 
+\newpage
+
 \begin{lem}[Encoderingen van reguliere talen zijn beslisbaar - gevolg]{Encoderingen van reguliere talen zijn beslisbaar - gevolg}
     \vspace{-0.1cm}
     De talen
@@ -254,14 +260,17 @@
         \item 
             Uit DFA$_1$ en DFA$_2$ construeer je de DFA$_{\Delta}$ die het symmetrisch verschil tussen L$_{\text{DFA}_1}$ en L$_{\text{DFA}_2}$ bepaalt. Beslis dan of DFA$_{\Delta}$ de lege taal bepaalt, zie bewijs hierboven.
     \end{itemize}
+    \vspace{-0.3cm}
 \end{prf}
 
 \begin{lem}[Encodering van een contextvrije taal is beslisbaar]{Encodering van een contextvrije taal is beslisbaar}
+    \vspace{-0.1cm}
     Aanvaarden van een string door een CFG
     \begin{equation*}
         \text{A}_{\text{CFG}} = \{\langle \text{G}, s\rangle\  | \ \text{G is een CFG en $s \in L_{\text{G}}$} \}
     \end{equation*}
     is beslisbaar.
+    \vspace{-0.1cm}
 \end{lem}
 
 \begin{prf}[Encodering van een contextvrije taal is beslisbaar]{prf - Encodering van een contextvrije taal is beslisbaar}
@@ -278,6 +287,8 @@
     \end{itemize}
     zijn beslisbaar.
 \end{lem}
+
+\newpage
 
 \begin{prf}[Leegheid van een CFG is beslisbaar]{prf - Leegheid van een CFG is beslisbaar}
     \begin{itemize}
@@ -310,6 +321,8 @@
 \begin{prf}[Beslisbaarheid van CFL]{prf - Beslisbaarheid van CFL}
     We zouden voor de CFL $L$ een PDA kunnen kiezen die $L$ beslist en deze PDA omzetten in een Turingmachine. Het probleem is dat een PDA in het algemeen niet-deterministisch is, en dus direct overeenkomt met een niet-deterministische TM\@. Maar zo'n NTM kan omgezet worden tot een TM die $L$ beslist. Een alternatief is om een CFG G voor $L$ te nemen en aan te tonen dat een beslisser B$_\text{G}$ bestaat die voor elke string $s$ kan beslissen of die door G wordt gegenereerd. Dat is natuurlijk niet hetzelfde als A$_{\text{CFG}}$ beslissen, maar het terkt er wel op. We kunnen B$_\text{G}$ als volgt construeren: we zetten G eerst om in zijn Chomsky Normaal Vorm. We genereren dan alle strings met een derivatielengte $2|s| - 1$: dat zijn er eindig veel. B$_\text{G}$ controleert of $s$ daarbij zit. Indien ja, dan accepteert B$_\text{G}$. Indien nee, dan verwerpt B$_\text{G}$.
 \end{prf}
+
+\newpage
 
 \subsection{Niet-beslisbare talen}
 
@@ -460,8 +473,6 @@
     is niet beslisbaar.
 \end{lem}
 
-\newpage
-
 \begin{prf}[Toepassing van PCP's]{prf -Toepassing van PCP's}
     We kunnen dit aantonen door een reductie te maken van het beslissen van een Post Correspondence Probleem, naar bovenstaande taal. Een PCP bestaat uit $k$ stenen: $a_1/b_1, \ldots, a_k/b_k$. We kunnen een dergelijke PCP omzetten in 2 PDA's. De eerste is de PDA die de volgende CFG implementeert
     \begin{align*}
@@ -475,6 +486,8 @@
     \end{align*}
     waarbij $t_1, \ldots, t_k$ nieuwe symbolen zijn die elk uniek een steen identificeren. De strings van de eerste taal bestaan uit strings samengesteld uit de $a_i$'s bovenop de stenen van het spel, gevolgd door de omgekeerde rij van symbolen $t_i$ die aangeeft welke stenen gebruikt zijn. Analoog bestaan de strings van de tweede taal uit strings die gevormd kunnen worden met strings $b_i$ onderaan op de stenen, gevolgd door de omgekeerde rij van symbolen $t_i$ van de gebruikte stenen. Een string in de doorsnede van deze twee talen geeft een sequentie van stenen zodat de string bovenaan en onderaan identiek is. Dus bestaat er een oplossing voor het PCP probleem als de doorsnede van deze twee talen niet leeg is.
 \end{prf}
+
+\newpage
 
 \subsection{Veel-één reductie}
 
@@ -491,8 +504,6 @@
     \end{equation*}
     We noteren: $\text{L}_1 \leq_m \text{L}_2$.
 \end{theo}
-
-\newpage
 
 \begin{lem}[Reductie van talen]{lem - Reductie van talen}
     \begin{itemize}
